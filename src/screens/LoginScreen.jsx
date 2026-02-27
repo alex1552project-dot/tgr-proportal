@@ -44,13 +44,14 @@ export default function LoginScreen() {
       minHeight: '100vh',
       display: 'flex',
       flexDirection: 'column',
-      justifyContent: 'space-between',
+      justifyContent: 'center',
       backgroundColor: '#0f0f1a',
-      padding: '24px 24px 40px',
+      padding: '32px 24px 40px',
+      gap: '28px',
     }}>
 
       {/* Logo + Language toggle */}
-      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '20px' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '16px' }}>
         <img src="/logo.jpg" alt="TGR ProPortal" style={{ width: '100%', height: 'auto', borderRadius: '20px' }} />
         <LanguageToggle />
       </div>
