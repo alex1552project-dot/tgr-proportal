@@ -40,8 +40,8 @@ export default function LoginScreen() {
   }
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center px-4" style={{ backgroundColor: '#0f0f1a' }}>
-      <div className="w-full max-w-sm">
+    <div className="min-h-screen flex flex-col items-center justify-center px-6" style={{ backgroundColor: '#0f0f1a' }}>
+      <div className="w-full max-w-md">
 
         {/* Language toggle */}
         <div className="flex justify-end mb-10">
@@ -49,14 +49,14 @@ export default function LoginScreen() {
         </div>
 
         {/* Logo */}
-        <div className="flex justify-center mb-10">
-          <img src="/logo.jpg" alt="TGR ProPortal" className="w-56 h-auto" style={{ borderRadius: '12px' }} />
+        <div className="flex justify-center mb-12">
+          <img src="/logo.jpg" alt="TGR ProPortal" style={{ width: '80%', maxWidth: '320px', height: 'auto', borderRadius: '16px' }} />
         </div>
 
         {/* Form */}
-        <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+        <form onSubmit={handleSubmit} className="flex flex-col gap-5">
           <div>
-            <label className="block text-sm mb-1.5" style={{ color: 'rgba(255,255,255,0.6)' }}>
+            <label className="block mb-2 font-semibold" style={{ color: 'rgba(255,255,255,0.7)', fontSize: '17px' }}>
               {t('email')}
             </label>
             <input
@@ -65,10 +65,12 @@ export default function LoginScreen() {
               onChange={e => setEmail(e.target.value)}
               required
               autoComplete="email"
-              className="w-full px-4 py-3 rounded-xl text-white text-base focus:outline-none transition-colors"
+              className="w-full rounded-2xl text-white focus:outline-none transition-colors"
               style={{
-                background: 'rgba(255,255,255,0.08)',
-                border: '1px solid rgba(255,255,255,0.15)',
+                background: 'rgba(255,255,255,0.09)',
+                border: '2px solid rgba(255,255,255,0.15)',
+                fontSize: '18px',
+                padding: '16px 20px',
               }}
               onFocus={e => (e.target.style.borderColor = '#C2865A')}
               onBlur={e => (e.target.style.borderColor = 'rgba(255,255,255,0.15)')}
@@ -76,7 +78,7 @@ export default function LoginScreen() {
           </div>
 
           <div>
-            <label className="block text-sm mb-1.5" style={{ color: 'rgba(255,255,255,0.6)' }}>
+            <label className="block mb-2 font-semibold" style={{ color: 'rgba(255,255,255,0.7)', fontSize: '17px' }}>
               {t('password')}
             </label>
             <input
@@ -85,10 +87,12 @@ export default function LoginScreen() {
               onChange={e => setPassword(e.target.value)}
               required
               autoComplete="current-password"
-              className="w-full px-4 py-3 rounded-xl text-white text-base focus:outline-none transition-colors"
+              className="w-full rounded-2xl text-white focus:outline-none transition-colors"
               style={{
-                background: 'rgba(255,255,255,0.08)',
-                border: '1px solid rgba(255,255,255,0.15)',
+                background: 'rgba(255,255,255,0.09)',
+                border: '2px solid rgba(255,255,255,0.15)',
+                fontSize: '18px',
+                padding: '16px 20px',
               }}
               onFocus={e => (e.target.style.borderColor = '#C2865A')}
               onBlur={e => (e.target.style.borderColor = 'rgba(255,255,255,0.15)')}
@@ -96,14 +100,21 @@ export default function LoginScreen() {
           </div>
 
           {error && (
-            <p className="text-sm text-center" style={{ color: '#f87171' }}>{error}</p>
+            <p className="text-center font-medium" style={{ color: '#f87171', fontSize: '16px' }}>{error}</p>
           )}
 
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-3 rounded-xl font-semibold text-white text-base transition-opacity mt-2"
-            style={{ backgroundColor: '#C2865A', opacity: loading ? 0.6 : 1 }}
+            className="w-full rounded-2xl font-bold text-white transition-opacity"
+            style={{
+              backgroundColor: '#C2865A',
+              opacity: loading ? 0.6 : 1,
+              fontSize: '20px',
+              padding: '18px',
+              marginTop: '8px',
+              letterSpacing: '0.02em',
+            }}
           >
             {loading ? t('loggingIn') : t('login')}
           </button>
