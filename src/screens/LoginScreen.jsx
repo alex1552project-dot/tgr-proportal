@@ -40,87 +40,104 @@ export default function LoginScreen() {
   }
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center px-6" style={{ backgroundColor: '#0f0f1a' }}>
-      <div className="w-full max-w-md">
+    <div style={{
+      minHeight: '100vh',
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'space-between',
+      backgroundColor: '#0f0f1a',
+      padding: '24px 24px 40px',
+    }}>
 
-        {/* Language toggle */}
-        <div className="flex justify-end mb-10">
-          <LanguageToggle />
-        </div>
-
-        {/* Logo */}
-        <div className="flex justify-center mb-12">
-          <img src="/logo.jpg" alt="TGR ProPortal" style={{ width: '80%', maxWidth: '320px', height: 'auto', borderRadius: '16px' }} />
-        </div>
-
-        {/* Form */}
-        <form onSubmit={handleSubmit} className="flex flex-col gap-5">
-          <div>
-            <label className="block mb-2 font-semibold" style={{ color: 'rgba(255,255,255,0.7)', fontSize: '17px' }}>
-              {t('email')}
-            </label>
-            <input
-              type="email"
-              value={email}
-              onChange={e => setEmail(e.target.value)}
-              required
-              autoComplete="email"
-              className="w-full rounded-2xl text-white focus:outline-none transition-colors"
-              style={{
-                background: 'rgba(255,255,255,0.09)',
-                border: '2px solid rgba(255,255,255,0.15)',
-                fontSize: '18px',
-                padding: '16px 20px',
-              }}
-              onFocus={e => (e.target.style.borderColor = '#C2865A')}
-              onBlur={e => (e.target.style.borderColor = 'rgba(255,255,255,0.15)')}
-            />
-          </div>
-
-          <div>
-            <label className="block mb-2 font-semibold" style={{ color: 'rgba(255,255,255,0.7)', fontSize: '17px' }}>
-              {t('password')}
-            </label>
-            <input
-              type="password"
-              value={password}
-              onChange={e => setPassword(e.target.value)}
-              required
-              autoComplete="current-password"
-              className="w-full rounded-2xl text-white focus:outline-none transition-colors"
-              style={{
-                background: 'rgba(255,255,255,0.09)',
-                border: '2px solid rgba(255,255,255,0.15)',
-                fontSize: '18px',
-                padding: '16px 20px',
-              }}
-              onFocus={e => (e.target.style.borderColor = '#C2865A')}
-              onBlur={e => (e.target.style.borderColor = 'rgba(255,255,255,0.15)')}
-            />
-          </div>
-
-          {error && (
-            <p className="text-center font-medium" style={{ color: '#f87171', fontSize: '16px' }}>{error}</p>
-          )}
-
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full rounded-2xl font-bold text-white transition-opacity"
-            style={{
-              backgroundColor: '#C2865A',
-              opacity: loading ? 0.6 : 1,
-              fontSize: '20px',
-              padding: '18px',
-              marginTop: '8px',
-              letterSpacing: '0.02em',
-            }}
-          >
-            {loading ? t('loggingIn') : t('login')}
-          </button>
-        </form>
-
+      {/* Language toggle */}
+      <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+        <LanguageToggle />
       </div>
+
+      {/* Logo */}
+      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+        <img src="/logo.jpg" alt="TGR ProPortal" style={{ width: '100%', height: 'auto', borderRadius: '20px' }} />
+      </div>
+
+      {/* Form */}
+      <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+        <div>
+          <label style={{ display: 'block', marginBottom: '10px', fontWeight: '700', color: 'rgba(255,255,255,0.75)', fontSize: '20px' }}>
+            {t('email')}
+          </label>
+          <input
+            type="email"
+            value={email}
+            onChange={e => setEmail(e.target.value)}
+            required
+            autoComplete="email"
+            style={{
+              width: '100%',
+              background: 'rgba(255,255,255,0.09)',
+              border: '2px solid rgba(255,255,255,0.15)',
+              borderRadius: '16px',
+              fontSize: '20px',
+              padding: '20px 22px',
+              color: '#fff',
+              outline: 'none',
+              boxSizing: 'border-box',
+            }}
+            onFocus={e => (e.target.style.borderColor = '#C2865A')}
+            onBlur={e => (e.target.style.borderColor = 'rgba(255,255,255,0.15)')}
+          />
+        </div>
+
+        <div>
+          <label style={{ display: 'block', marginBottom: '10px', fontWeight: '700', color: 'rgba(255,255,255,0.75)', fontSize: '20px' }}>
+            {t('password')}
+          </label>
+          <input
+            type="password"
+            value={password}
+            onChange={e => setPassword(e.target.value)}
+            required
+            autoComplete="current-password"
+            style={{
+              width: '100%',
+              background: 'rgba(255,255,255,0.09)',
+              border: '2px solid rgba(255,255,255,0.15)',
+              borderRadius: '16px',
+              fontSize: '20px',
+              padding: '20px 22px',
+              color: '#fff',
+              outline: 'none',
+              boxSizing: 'border-box',
+            }}
+            onFocus={e => (e.target.style.borderColor = '#C2865A')}
+            onBlur={e => (e.target.style.borderColor = 'rgba(255,255,255,0.15)')}
+          />
+        </div>
+
+        {error && (
+          <p style={{ textAlign: 'center', color: '#f87171', fontSize: '18px', fontWeight: '600', margin: 0 }}>{error}</p>
+        )}
+
+        <button
+          type="submit"
+          disabled={loading}
+          style={{
+            width: '100%',
+            backgroundColor: '#C2865A',
+            opacity: loading ? 0.6 : 1,
+            border: 'none',
+            borderRadius: '16px',
+            fontSize: '22px',
+            fontWeight: '800',
+            color: '#fff',
+            padding: '22px',
+            letterSpacing: '0.03em',
+            cursor: 'pointer',
+          }}
+        >
+          {loading ? t('loggingIn') : t('login')}
+        </button>
+      </form>
+
     </div>
   )
 }
