@@ -49,14 +49,10 @@ export default function LoginScreen() {
       padding: '24px 24px 40px',
     }}>
 
-      {/* Language toggle */}
-      <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-        <LanguageToggle />
-      </div>
-
-      {/* Logo */}
-      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+      {/* Logo + Language toggle */}
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '20px' }}>
         <img src="/logo.jpg" alt="TGR ProPortal" style={{ width: '100%', height: 'auto', borderRadius: '20px' }} />
+        <LanguageToggle />
       </div>
 
       {/* Form */}
