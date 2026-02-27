@@ -48,11 +48,9 @@ export default function LoginScreen() {
           <LanguageToggle />
         </div>
 
-        {/* Wordmark */}
-        <div className="text-center mb-10">
-          <h1 className="text-3xl font-bold tracking-wide" style={{ color: '#C2865A' }}>
-            {t('appName')}
-          </h1>
+        {/* Logo */}
+        <div className="flex justify-center mb-10">
+          <img src="/logo.jpg" alt="TGR ProPortal" className="w-56 h-auto" style={{ borderRadius: '12px' }} />
         </div>
 
         {/* Form */}
