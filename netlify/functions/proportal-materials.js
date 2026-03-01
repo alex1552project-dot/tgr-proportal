@@ -30,6 +30,32 @@ exports.handler = async (event) => {
 
   try {
     const { db } = await connectToDatabase();
+
+    // GET ?densities=true — material density records for SiteMeasure calculator
+    const { densities } = event.queryStringParameters || {};
+    if (densities === 'true') {
+      const rows = await db.collection('material_densities')
+        .find({})
+        .sort({ materialName: 1 })
+        .toArray();
+      return {
+        statusCode: 200,
+        headers,
+        body: JSON.stringify({
+          densities: rows.map(d => ({
+            id: d._id.toString(),
+            slug: d.slug,
+            materialName: d.materialName,
+            category: d.category,
+            tonsPerCubicYard: d.tonsPerCubicYard,
+            defaultDepthIn: d.defaultDepthIn,
+            minDepthIn: d.minDepthIn,
+            maxDepthIn: d.maxDepthIn,
+          })),
+        }),
+      };
+    }
+
     const materials = await db.collection('portal_materials')
       .find({ active: true })
       .sort({ name: 1 })

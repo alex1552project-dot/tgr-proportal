@@ -8,6 +8,18 @@
 const bcrypt = require('bcryptjs');
 const { connectToDatabase, headers, handleOptions } = require('./utils/db');
 
+const DENSITIES = [
+  { slug: 'd1', materialName: 'Crushed Limestone', category: 'rock',    tonsPerCubicYard: 1.40, defaultDepthIn: 4, minDepthIn: 3, maxDepthIn: 8  },
+  { slug: 'd2', materialName: 'Decomposed Granite', category: 'gravel',  tonsPerCubicYard: 1.40, defaultDepthIn: 3, minDepthIn: 2, maxDepthIn: 6  },
+  { slug: 'd3', materialName: 'Pea Gravel',          category: 'gravel',  tonsPerCubicYard: 1.35, defaultDepthIn: 2, minDepthIn: 2, maxDepthIn: 6  },
+  { slug: 'd4', materialName: 'River Rock',           category: 'gravel',  tonsPerCubicYard: 1.35, defaultDepthIn: 2, minDepthIn: 2, maxDepthIn: 4  },
+  { slug: 'd5', materialName: 'Sand',                 category: 'sand',    tonsPerCubicYard: 1.35, defaultDepthIn: 2, minDepthIn: 2, maxDepthIn: 6  },
+  { slug: 'd6', materialName: 'Topsoil',              category: 'topsoil', tonsPerCubicYard: 1.10, defaultDepthIn: 4, minDepthIn: 2, maxDepthIn: 8  },
+  { slug: 'd7', materialName: 'Fill Dirt',            category: 'fill',    tonsPerCubicYard: 1.15, defaultDepthIn: 6, minDepthIn: 4, maxDepthIn: 12 },
+  { slug: 'd8', materialName: 'Hardwood Mulch',       category: 'mulch',   tonsPerCubicYard: 0.45, defaultDepthIn: 3, minDepthIn: 2, maxDepthIn: 6  },
+  { slug: 'd9', materialName: 'Cedar Mulch',          category: 'mulch',   tonsPerCubicYard: 0.40, defaultDepthIn: 3, minDepthIn: 2, maxDepthIn: 6  },
+];
+
 const MATERIALS = [
   { slug: 'm1', name: 'Crushed Limestone #57', nameEs: 'Piedra Caliza Triturada #57', available: 480, pricePerTon: 22.00, unit: 'tons' },
   { slug: 'm2', name: 'Flex Base',              nameEs: 'Base Flexible',                available: 320, pricePerTon: 18.50, unit: 'tons' },
@@ -50,6 +62,9 @@ exports.handler = async (event) => {
     await db.collection('portal_orders').createIndex({ contractorId: 1, status: 1, createdAt: -1 });
     await db.collection('portal_orders').createIndex({ foremanId: 1, createdAt: -1 });
     await db.collection('portal_materials').createIndex({ slug: 1 }, { unique: true });
+    await db.collection('material_densities').createIndex({ slug: 1 }, { unique: true });
+    await db.collection('measurements').createIndex({ contractorId: 1, status: 1, createdAt: -1 });
+    await db.collection('measurements').createIndex({ projectId: 1, status: 1 });
     log.push('indexes OK');
 
     // ── Contractor ───────────────────────────────────────────────────────
@@ -91,6 +106,17 @@ exports.handler = async (event) => {
         log.push(`created material: ${m.name}`);
       } else {
         log.push(`material exists: ${m.name}`);
+      }
+    }
+
+    // ── Material Densities ───────────────────────────────────────────────
+    for (const d of DENSITIES) {
+      const ex = await db.collection('material_densities').findOne({ slug: d.slug });
+      if (!ex) {
+        await db.collection('material_densities').insertOne({ ...d, createdAt: new Date() });
+        log.push(`created density: ${d.materialName}`);
+      } else {
+        log.push(`density exists: ${d.materialName}`);
       }
     }
 

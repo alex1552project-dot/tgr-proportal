@@ -46,12 +46,15 @@ exports.handler = async (event) => {
       if (!valid) {
         return { statusCode: 401, headers, body: JSON.stringify({ error: 'Invalid credentials' }) };
       }
+      const contractor = await db.collection('contractors').findOne({ _id: new ObjectId(user.contractorId) });
+      const siteMeasureEnabled = contractor?.siteMeasureEnabled || false;
       const payload = {
         userId: user._id.toString(),
         name: user.name,
         role: user.role,
         contractorId: user.contractorId,
-        language: user.language || 'en'
+        language: user.language || 'en',
+        siteMeasureEnabled,
       };
       const token = jwt.sign(payload, JWT_SECRET, { expiresIn: '8h' });
       return {
@@ -64,7 +67,8 @@ exports.handler = async (event) => {
             name: user.name,
             role: user.role,
             contractorId: user.contractorId,
-            language: user.language || 'en'
+            language: user.language || 'en',
+            siteMeasureEnabled,
           }
         })
       };
@@ -76,8 +80,8 @@ exports.handler = async (event) => {
       if (!auth.valid) {
         return { statusCode: 401, headers, body: JSON.stringify({ error: auth.error }) };
       }
-      const { userId, name, role, contractorId, language } = auth.user;
-      const token = jwt.sign({ userId, name, role, contractorId, language }, JWT_SECRET, { expiresIn: '8h' });
+      const { userId, name, role, contractorId, language, siteMeasureEnabled } = auth.user;
+      const token = jwt.sign({ userId, name, role, contractorId, language, siteMeasureEnabled: siteMeasureEnabled || false }, JWT_SECRET, { expiresIn: '8h' });
       return { statusCode: 200, headers, body: JSON.stringify({ token }) };
     }
 
