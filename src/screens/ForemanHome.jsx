@@ -5,6 +5,7 @@ import { LangContext } from '../context/LangContext'
 import StatusBadge from '../components/StatusBadge'
 import BottomNav from '../components/BottomNav'
 import { Icons } from '../components/Icons'
+import GpsWalkScreen from './GpsWalkScreen'
 
 // ── Default delivery date (3 days from today) ──────────────────────────────
 function defaultDelivery() {
@@ -224,6 +225,19 @@ export default function ForemanHome() {
     )
   }
 
+  // ── Measure screen ────────────────────────────────────────────────────────
+  if (screen === 'measure') {
+    return (
+      <GpsWalkScreen
+        projectId={selectedProjectId}
+        selectedProject={selectedProject}
+        token={token}
+        onSave={() => { setScreen('home'); setSelectedProjectId(null) }}
+        onCancel={() => setScreen('materials')}
+      />
+    )
+  }
+
   // ── Review screen ─────────────────────────────────────────────────────────
   if (screen === 'review') {
     return (
@@ -324,6 +338,22 @@ export default function ForemanHome() {
         </div>
 
         <div style={{ flex: 1, overflowY: 'auto', padding: '8px 16px 16px' }}>
+          {/* Measure Area — only shown when SiteMeasure is enabled for this contractor */}
+          {user?.siteMeasureEnabled && (
+            <button
+              onClick={() => setScreen('measure')}
+              style={{ width: '100%', background: 'rgba(194,134,90,0.08)', border: '1.5px dashed rgba(194,134,90,0.5)', borderRadius: 12, padding: '14px 16px', marginBottom: 12, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 12, textAlign: 'left', boxSizing: 'border-box' }}
+            >
+              <div style={{ width: 38, height: 38, borderRadius: 9, background: 'rgba(194,134,90,0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, color: '#C2865A' }}>
+                <Icons.Ruler />
+              </div>
+              <div style={{ flex: 1 }}>
+                <div style={{ fontSize: 14, fontWeight: 700, color: '#C2865A', marginBottom: 2, fontFamily: "'DM Sans', sans-serif" }}>{t('measureArea')}</div>
+                <div style={{ fontSize: 12, color: '#9CA3AF', fontFamily: "'DM Sans', sans-serif" }}>{t('measureAreaDesc')}</div>
+              </div>
+              <div style={{ color: '#C2865A' }}><Icons.ChevronRight /></div>
+            </button>
+          )}
           {materialsLoading ? (
             <div style={{ textAlign: 'center', padding: '40px 0', color: '#6B7280', fontFamily: "'DM Sans', sans-serif" }}>{t('loading')}</div>
           ) : (

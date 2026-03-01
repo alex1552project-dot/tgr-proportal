@@ -78,4 +78,18 @@ export const Icons = {
       <circle cx="18.5" cy="18.5" r="2.5" />
     </svg>
   ),
+  Ruler: () => (
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M21.3 8.7L8.7 21.3c-.4.4-.8.6-1.3.6H3a1 1 0 0 1-1-1v-4.4c0-.5.2-.9.6-1.3L15.3 2.7a1 1 0 0 1 1.4 0l4.6 4.6a1 1 0 0 1 0 1.4z" />
+      <path d="M7.5 10.5l2 2" />
+      <path d="M10.5 7.5l2 2" />
+      <path d="M13.5 4.5l2 2" />
+    </svg>
+  ),
+  MapPin: () => (
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+      <circle cx="12" cy="10" r="3" />
+    </svg>
+  ),
 };
