@@ -294,7 +294,7 @@ export default function GpsWalkScreen({ projectId, selectedProject, token, onSav
           <span style={{ fontSize: 18, fontWeight: 700, color: '#fff', fontFamily: "'DM Sans', sans-serif" }}>{t('walkPerimeter')}</span>
         </div>
 
-        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '24px', gap: 32 }}>
+        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'space-evenly', padding: '24px' }}>
 
           {/* Accuracy rings */}
           <div style={{ textAlign: 'center' }}>
@@ -346,6 +346,14 @@ export default function GpsWalkScreen({ projectId, selectedProject, token, onSav
 
     return (
       <div style={{ height: '100%', display: 'flex', flexDirection: 'column', background: '#111' }}>
+
+        {/* Nav header */}
+        <div style={{ padding: '16px 16px 12px', borderBottom: '1px solid #2a2a2a', display: 'flex', alignItems: 'center', gap: 12 }}>
+          <button onClick={() => { setCoords([]); setStep('pre') }} style={{ background: 'none', border: 'none', color: '#C2865A', cursor: 'pointer', padding: 0 }}>
+            <Icons.Back />
+          </button>
+          <span style={{ fontSize: 18, fontWeight: 700, color: '#fff', fontFamily: "'DM Sans', sans-serif" }}>{t('walkPerimeter')}</span>
+        </div>
 
         {/* Status bar */}
         <div style={{ padding: '10px 16px', background: '#1a1a1a', borderBottom: '1px solid #2a2a2a', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>

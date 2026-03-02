@@ -43,6 +43,7 @@ exports.handler = async (event) => {
           id: p._id.toString(),
           name: p.name,
           po: p.po,
+          address: p.address || '',
           status: p.status,
         })),
       }),

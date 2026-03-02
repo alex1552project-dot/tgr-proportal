@@ -8,7 +8,7 @@ export default function BottomNav({ screen, setScreen, t }) {
   ]
 
   return (
-    <div style={{ display: 'flex', borderTop: '1px solid #2a2a2a', background: '#111', padding: '8px 0 12px' }}>
+    <div style={{ position: 'fixed', bottom: 0, left: 0, right: 0, display: 'flex', borderTop: '1px solid #2a2a2a', background: '#111', paddingTop: 8, paddingLeft: 0, paddingRight: 0, paddingBottom: 'max(20px, env(safe-area-inset-bottom))', zIndex: 100 }}>
       {tabs.map(nav => (
         <button
           key={nav.id}

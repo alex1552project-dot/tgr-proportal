@@ -39,7 +39,7 @@ function MaterialCard({ material, lang, t, onAdd, inCart }) {
 
   return (
     <div style={{
-      background: '#1a1a1a', borderRadius: 12, padding: 14, marginBottom: 8,
+      background: '#1a1a1a', borderRadius: 12, padding: 18, marginBottom: 12,
       border: inCart ? '1px solid #C2865A' : '1px solid #2a2a2a',
       opacity: isOut ? 0.5 : 1,
     }}>
@@ -249,21 +249,21 @@ export default function ForemanHome() {
 
         <div style={{ flex: 1, overflowY: 'auto', padding: 16 }}>
           {/* Project */}
-          <div style={{ background: '#1a1a1a', borderRadius: 12, padding: 16, marginBottom: 12, border: '1px solid #2a2a2a' }}>
+          <div style={{ background: '#1a1a1a', borderRadius: 12, padding: 20, marginBottom: 14, border: '1px solid #2a2a2a' }}>
             <div style={{ fontSize: 11, color: '#9CA3AF', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: 4, fontFamily: "'DM Sans', sans-serif" }}>{t('project')}</div>
             <div style={{ fontSize: 15, color: '#fff', fontWeight: 600, fontFamily: "'DM Sans', sans-serif" }}>{selectedProject?.name}</div>
             <div style={{ fontSize: 13, color: '#C2865A', marginTop: 2, fontFamily: "'DM Sans', sans-serif" }}>{selectedProject?.po}</div>
           </div>
 
           {/* Delivery date */}
-          <div style={{ background: '#1a1a1a', borderRadius: 12, padding: 16, marginBottom: 12, border: '1px solid #2a2a2a' }}>
+          <div style={{ background: '#1a1a1a', borderRadius: 12, padding: 20, marginBottom: 14, border: '1px solid #2a2a2a' }}>
             <div style={{ fontSize: 11, color: '#9CA3AF', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: 4, fontFamily: "'DM Sans', sans-serif" }}>{t('requestedDelivery')}</div>
             <div style={{ fontSize: 15, color: '#fff', fontWeight: 600, fontFamily: "'DM Sans', sans-serif" }}>{deliveryDate}</div>
           </div>
 
           {/* Cart items */}
           {cart.map(item => (
-            <div key={item.id} style={{ background: '#1a1a1a', borderRadius: 12, padding: 16, marginBottom: 8, border: '1px solid #2a2a2a', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <div key={item.id} style={{ background: '#1a1a1a', borderRadius: 12, padding: 20, marginBottom: 12, border: '1px solid #2a2a2a', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <div>
                 <div style={{ fontSize: 14, color: '#fff', fontWeight: 600, fontFamily: "'DM Sans', sans-serif" }}>{lang === 'es' ? item.nameEs : item.name}</div>
                 <div style={{ fontSize: 13, color: '#9CA3AF', fontFamily: "'DM Sans', sans-serif" }}>{item.qty} {t('tons')}</div>
@@ -337,23 +337,26 @@ export default function ForemanHome() {
           />
         </div>
 
-        <div style={{ flex: 1, overflowY: 'auto', padding: '8px 16px 16px' }}>
-          {/* Measure Area — only shown when SiteMeasure is enabled for this contractor */}
-          {user?.siteMeasureEnabled && (
+        {/* Measure Area — pinned above the scrollable list, visually distinct */}
+        {user?.siteMeasureEnabled && (
+          <div style={{ padding: '12px 16px 10px', borderBottom: '1px solid #2a2a2a' }}>
             <button
               onClick={() => setScreen('measure')}
-              style={{ width: '100%', background: 'rgba(194,134,90,0.08)', border: '1.5px dashed rgba(194,134,90,0.5)', borderRadius: 12, padding: '14px 16px', marginBottom: 12, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 12, textAlign: 'left', boxSizing: 'border-box' }}
+              style={{ width: '100%', background: 'rgba(194,134,90,0.10)', border: '1.5px solid rgba(194,134,90,0.55)', borderRadius: 12, padding: '16px 18px', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 14, textAlign: 'left', boxSizing: 'border-box' }}
             >
-              <div style={{ width: 38, height: 38, borderRadius: 9, background: 'rgba(194,134,90,0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, color: '#C2865A' }}>
+              <div style={{ width: 46, height: 46, borderRadius: 11, background: 'rgba(194,134,90,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, color: '#C2865A' }}>
                 <Icons.Ruler />
               </div>
               <div style={{ flex: 1 }}>
-                <div style={{ fontSize: 14, fontWeight: 700, color: '#C2865A', marginBottom: 2, fontFamily: "'DM Sans', sans-serif" }}>{t('measureArea')}</div>
-                <div style={{ fontSize: 12, color: '#9CA3AF', fontFamily: "'DM Sans', sans-serif" }}>{t('measureAreaDesc')}</div>
+                <div style={{ fontSize: 15, fontWeight: 700, color: '#C2865A', marginBottom: 3, fontFamily: "'DM Sans', sans-serif" }}>{t('measureArea')}</div>
+                <div style={{ fontSize: 13, color: '#9CA3AF', fontFamily: "'DM Sans', sans-serif" }}>{t('measureAreaDesc')}</div>
               </div>
               <div style={{ color: '#C2865A' }}><Icons.ChevronRight /></div>
             </button>
-          )}
+          </div>
+        )}
+
+        <div style={{ flex: 1, overflowY: 'auto', padding: '12px 16px 16px' }}>
           {materialsLoading ? (
             <div style={{ textAlign: 'center', padding: '40px 0', color: '#6B7280', fontFamily: "'DM Sans', sans-serif" }}>{t('loading')}</div>
           ) : (
@@ -388,10 +391,11 @@ export default function ForemanHome() {
   if (screen === 'orders') {
     return (
       <div style={{ height: '100%', display: 'flex', flexDirection: 'column', background: '#111' }}>
-        <div style={{ padding: '16px 16px 12px', borderBottom: '1px solid #2a2a2a' }}>
+        <div style={{ padding: '16px 20px 14px', borderBottom: '1px solid #2a2a2a', display: 'flex', alignItems: 'center', gap: 12 }}>
+          <button onClick={() => setScreen('home')} style={{ background: 'none', border: 'none', color: '#C2865A', cursor: 'pointer', padding: 0, fontSize: 14, fontWeight: 600, fontFamily: "'DM Sans', sans-serif" }}>← {t('back')}</button>
           <span style={{ fontSize: 18, fontWeight: 700, color: '#fff', fontFamily: "'DM Sans', sans-serif" }}>{t('orderHistory')}</span>
         </div>
-        <div style={{ flex: 1, overflowY: 'auto', padding: 16 }}>
+        <div style={{ flex: 1, overflowY: 'auto', padding: '16px 20px 100px' }}>
           {historyLoading ? (
             <div style={{ textAlign: 'center', padding: '40px 0', color: '#6B7280', fontFamily: "'DM Sans', sans-serif" }}>{t('loading')}</div>
           ) : orderHistory.length === 0 ? (
@@ -401,7 +405,7 @@ export default function ForemanHome() {
             </div>
           ) : (
             orderHistory.map(o => (
-              <div key={o.id} style={{ background: '#1a1a1a', borderRadius: 12, padding: 16, marginBottom: 8, border: '1px solid #2a2a2a' }}>
+              <div key={o.id} style={{ background: '#1a1a1a', borderRadius: 12, padding: 20, marginBottom: 12, border: '1px solid #2a2a2a' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 8 }}>
                   <div style={{ fontSize: 14, fontWeight: 600, color: '#fff', fontFamily: "'DM Sans', sans-serif", flex: 1, marginRight: 8 }}>{o.projectName}</div>
                   <StatusBadge status={o.status} />
@@ -427,10 +431,11 @@ export default function ForemanHome() {
   if (screen === 'settings') {
     return (
       <div style={{ height: '100%', display: 'flex', flexDirection: 'column', background: '#111' }}>
-        <div style={{ padding: '16px 16px 12px', borderBottom: '1px solid #2a2a2a' }}>
+        <div style={{ padding: '16px 20px 14px', borderBottom: '1px solid #2a2a2a', display: 'flex', alignItems: 'center', gap: 12 }}>
+          <button onClick={() => setScreen('home')} style={{ background: 'none', border: 'none', color: '#C2865A', cursor: 'pointer', padding: 0, fontSize: 14, fontWeight: 600, fontFamily: "'DM Sans', sans-serif" }}>← {t('back')}</button>
           <span style={{ fontSize: 18, fontWeight: 700, color: '#fff', fontFamily: "'DM Sans', sans-serif" }}>{t('settings')}</span>
         </div>
-        <div style={{ flex: 1, padding: 16 }}>
+        <div style={{ flex: 1, padding: '16px 20px 100px', overflowY: 'auto' }}>
           <div style={{ background: '#1a1a1a', borderRadius: 12, padding: 16, border: '1px solid #2a2a2a', marginBottom: 12 }}>
             <div style={{ fontSize: 13, color: '#9CA3AF', marginBottom: 12, fontFamily: "'DM Sans', sans-serif" }}>{t('language')}</div>
             <div style={{ display: 'flex', gap: 8 }}>
@@ -481,8 +486,8 @@ export default function ForemanHome() {
         </div>
       </div>
 
-      <div style={{ flex: 1, overflowY: 'auto', padding: '0 16px 16px' }}>
-        <div style={{ fontSize: 13, fontWeight: 600, color: '#9CA3AF', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: 10, marginTop: 4, fontFamily: "'DM Sans', sans-serif" }}>
+      <div style={{ flex: 1, overflowY: 'auto', padding: '0 20px 100px' }}>
+        <div style={{ fontSize: 13, fontWeight: 600, color: '#9CA3AF', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: 12, marginTop: 24, fontFamily: "'DM Sans', sans-serif" }}>
           {t('selectProject')}
         </div>
 
@@ -498,7 +503,7 @@ export default function ForemanHome() {
             <button
               key={proj.id}
               onClick={() => { setSelectedProjectId(proj.id); setScreen('materials') }}
-              style={{ width: '100%', background: '#1a1a1a', border: '1px solid #2a2a2a', borderRadius: 12, padding: 16, marginBottom: 8, cursor: 'pointer', display: 'flex', justifyContent: 'space-between', alignItems: 'center', textAlign: 'left' }}
+              style={{ width: '100%', background: '#1a1a1a', border: '1px solid #2a2a2a', borderRadius: 12, padding: 20, marginBottom: 12, cursor: 'pointer', display: 'flex', justifyContent: 'space-between', alignItems: 'center', textAlign: 'left' }}
             >
               <div>
                 <div style={{ fontSize: 15, fontWeight: 600, color: '#fff', fontFamily: "'DM Sans', sans-serif" }}>{proj.name}</div>
