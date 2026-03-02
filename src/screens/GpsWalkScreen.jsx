@@ -235,7 +235,7 @@ export default function GpsWalkScreen({ projectId, selectedProject, token, onSav
   if (step === 'mode') {
     return (
       <div style={{ height: '100%', display: 'flex', flexDirection: 'column', background: '#111' }}>
-        <div style={{ padding: '16px 16px 12px', borderBottom: '1px solid #2a2a2a', display: 'flex', alignItems: 'center', gap: 12 }}>
+        <div style={{ padding: '100px 16px 16px', borderBottom: '1px solid #2a2a2a', display: 'flex', alignItems: 'center', gap: 12 }}>
           <button onClick={onCancel} style={{ background: 'none', border: 'none', color: '#C2865A', cursor: 'pointer', padding: 0, fontSize: 14, fontWeight: 600, fontFamily: "'DM Sans', sans-serif" }}>← Back</button>
           <span style={{ fontSize: 18, fontWeight: 700, color: '#fff', fontFamily: "'DM Sans', sans-serif" }}>{t('measureArea')}</span>
         </div>
@@ -285,7 +285,7 @@ export default function GpsWalkScreen({ projectId, selectedProject, token, onSav
     const hasReading = accuracy !== null
     return (
       <div style={{ height: '100%', display: 'flex', flexDirection: 'column', background: '#111' }}>
-        <div style={{ padding: '16px 16px 12px', borderBottom: '1px solid #2a2a2a', display: 'flex', alignItems: 'center', gap: 12 }}>
+        <div style={{ padding: '100px 16px 16px', borderBottom: '1px solid #2a2a2a', display: 'flex', alignItems: 'center', gap: 12 }}>
           <button onClick={() => setStep('mode')} style={{ background: 'none', border: 'none', color: '#C2865A', cursor: 'pointer', padding: 0, fontSize: 14, fontWeight: 600, fontFamily: "'DM Sans', sans-serif" }}>← Back</button>
           <span style={{ fontSize: 18, fontWeight: 700, color: '#fff', fontFamily: "'DM Sans', sans-serif" }}>{t('walkPerimeter')}</span>
         </div>
@@ -344,7 +344,7 @@ export default function GpsWalkScreen({ projectId, selectedProject, token, onSav
       <div style={{ height: '100%', display: 'flex', flexDirection: 'column', background: '#111' }}>
 
         {/* Nav header */}
-        <div style={{ padding: '16px 16px 12px', borderBottom: '1px solid #2a2a2a', display: 'flex', alignItems: 'center', gap: 12 }}>
+        <div style={{ padding: '100px 16px 16px', borderBottom: '1px solid #2a2a2a', display: 'flex', alignItems: 'center', gap: 12 }}>
           <button onClick={() => { setCoords([]); setStep('pre') }} style={{ background: 'none', border: 'none', color: '#C2865A', cursor: 'pointer', padding: 0, fontSize: 14, fontWeight: 600, fontFamily: "'DM Sans', sans-serif" }}>← Back</button>
           <span style={{ fontSize: 18, fontWeight: 700, color: '#fff', fontFamily: "'DM Sans', sans-serif" }}>{t('walkPerimeter')}</span>
         </div>
@@ -415,7 +415,7 @@ export default function GpsWalkScreen({ projectId, selectedProject, token, onSav
 
     return (
       <div style={{ height: '100%', display: 'flex', flexDirection: 'column', background: '#111' }}>
-        <div style={{ padding: '16px 16px 12px', borderBottom: '1px solid #2a2a2a', display: 'flex', alignItems: 'center', gap: 12 }}>
+        <div style={{ padding: '100px 16px 16px', borderBottom: '1px solid #2a2a2a', display: 'flex', alignItems: 'center', gap: 12 }}>
           <button onClick={() => { setCoords([]); setStep('walking') }} style={{ background: 'none', border: 'none', color: '#C2865A', cursor: 'pointer', padding: 0, fontSize: 14, fontWeight: 600, fontFamily: "'DM Sans', sans-serif" }}>← Back</button>
           <span style={{ fontSize: 18, fontWeight: 700, color: '#fff', fontFamily: "'DM Sans', sans-serif" }}>{t('reviewPolygon')}</span>
         </div>
@@ -505,7 +505,7 @@ export default function GpsWalkScreen({ projectId, selectedProject, token, onSav
   // ── STEP: CONFIGURE ────────────────────────────────────────────────────────
   return (
     <div style={{ height: '100%', display: 'flex', flexDirection: 'column', background: '#111' }}>
-      <div style={{ padding: '16px 16px 12px', borderBottom: '1px solid #2a2a2a', display: 'flex', alignItems: 'center', gap: 12 }}>
+      <div style={{ padding: '100px 16px 16px', borderBottom: '1px solid #2a2a2a', display: 'flex', alignItems: 'center', gap: 12 }}>
         <button onClick={() => setStep('review')} style={{ background: 'none', border: 'none', color: '#C2865A', cursor: 'pointer', padding: 0, fontSize: 14, fontWeight: 600, fontFamily: "'DM Sans', sans-serif" }}>← Back</button>
         <span style={{ fontSize: 18, fontWeight: 700, color: '#fff', fontFamily: "'DM Sans', sans-serif" }}>{t('configureArea')}</span>
       </div>

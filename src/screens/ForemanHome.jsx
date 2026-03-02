@@ -242,7 +242,7 @@ export default function ForemanHome() {
   if (screen === 'review') {
     return (
       <div style={{ height: '100%', display: 'flex', flexDirection: 'column', background: '#111' }}>
-        <div style={{ padding: '16px 16px 12px', borderBottom: '1px solid #2a2a2a', display: 'flex', alignItems: 'center', gap: 12 }}>
+        <div style={{ padding: '100px 16px 16px', borderBottom: '1px solid #2a2a2a', display: 'flex', alignItems: 'center', gap: 12 }}>
           <button onClick={() => setScreen('materials')} style={{ background: 'none', border: 'none', color: '#C2865A', cursor: 'pointer', padding: 0, fontSize: 14, fontWeight: 600, fontFamily: "'DM Sans', sans-serif" }}>← {t('back')}</button>
           <span style={{ fontSize: 18, fontWeight: 700, color: '#fff', fontFamily: "'DM Sans', sans-serif" }}>{t('orderSummary')}</span>
         </div>
@@ -307,7 +307,7 @@ export default function ForemanHome() {
   if (screen === 'materials') {
     return (
       <div style={{ height: '100%', display: 'flex', flexDirection: 'column', background: '#111' }}>
-        <div style={{ padding: '16px 16px 12px', borderBottom: '1px solid #2a2a2a', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+        <div style={{ padding: '100px 16px 16px', borderBottom: '1px solid #2a2a2a', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
             <button onClick={() => { setScreen('home'); setSelectedProjectId(null) }} style={{ background: 'none', border: 'none', color: '#C2865A', cursor: 'pointer', padding: 0, fontSize: 14, fontWeight: 600, fontFamily: "'DM Sans', sans-serif" }}>← {t('back')}</button>
             <span style={{ fontSize: 18, fontWeight: 700, color: '#fff', fontFamily: "'DM Sans', sans-serif" }}>{t('selectMaterial')}</span>
@@ -391,7 +391,7 @@ export default function ForemanHome() {
   if (screen === 'orders') {
     return (
       <div style={{ height: '100%', display: 'flex', flexDirection: 'column', background: '#111' }}>
-        <div style={{ padding: '16px 20px 14px', borderBottom: '1px solid #2a2a2a', display: 'flex', alignItems: 'center', gap: 12 }}>
+        <div style={{ padding: '100px 20px 16px', borderBottom: '1px solid #2a2a2a', display: 'flex', alignItems: 'center', gap: 12 }}>
           <button onClick={() => setScreen('home')} style={{ background: 'none', border: 'none', color: '#C2865A', cursor: 'pointer', padding: 0, fontSize: 14, fontWeight: 600, fontFamily: "'DM Sans', sans-serif" }}>← {t('back')}</button>
           <span style={{ fontSize: 18, fontWeight: 700, color: '#fff', fontFamily: "'DM Sans', sans-serif" }}>{t('orderHistory')}</span>
         </div>
@@ -431,7 +431,7 @@ export default function ForemanHome() {
   if (screen === 'settings') {
     return (
       <div style={{ height: '100%', display: 'flex', flexDirection: 'column', background: '#111' }}>
-        <div style={{ padding: '16px 20px 14px', borderBottom: '1px solid #2a2a2a', display: 'flex', alignItems: 'center', gap: 12 }}>
+        <div style={{ padding: '100px 20px 16px', borderBottom: '1px solid #2a2a2a', display: 'flex', alignItems: 'center', gap: 12 }}>
           <button onClick={() => setScreen('home')} style={{ background: 'none', border: 'none', color: '#C2865A', cursor: 'pointer', padding: 0, fontSize: 14, fontWeight: 600, fontFamily: "'DM Sans', sans-serif" }}>← {t('back')}</button>
           <span style={{ fontSize: 18, fontWeight: 700, color: '#fff', fontFamily: "'DM Sans', sans-serif" }}>{t('settings')}</span>
         </div>
@@ -474,10 +474,9 @@ export default function ForemanHome() {
 
   return (
     <div style={{ height: '100%', display: 'flex', flexDirection: 'column', background: '#111' }}>
-      <div style={{ padding: '56px 24px 36px', background: 'linear-gradient(180deg, #2d1f14 0%, #111111 100%)' }}>
+      <div style={{ padding: '100px 24px 36px', background: 'linear-gradient(180deg, #2d1f14 0%, #111111 100%)' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
           <div>
-            <div style={{ fontSize: 16, color: '#9CA3AF', marginBottom: 8, fontFamily: "'DM Sans', sans-serif" }}>{t('welcome')},</div>
             <div style={{ fontSize: 32, fontWeight: 800, color: '#fff', lineHeight: 1.15, fontFamily: "'DM Sans', sans-serif" }}>{user?.name}</div>
           </div>
           <div style={{ width: 58, height: 58, borderRadius: '50%', background: '#C2865A', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontWeight: 700, fontSize: 22, fontFamily: "'DM Sans', sans-serif", flexShrink: 0, marginLeft: 16 }}>

@@ -87,7 +87,7 @@ export default function SupervisorHome() {
 
     return (
       <div style={{ height: '100%', display: 'flex', flexDirection: 'column', background: '#111' }}>
-        <div style={{ padding: '16px 16px 12px', borderBottom: '1px solid #2a2a2a', display: 'flex', alignItems: 'center', gap: 12 }}>
+        <div style={{ padding: '100px 16px 16px', borderBottom: '1px solid #2a2a2a', display: 'flex', alignItems: 'center', gap: 12 }}>
           <button onClick={() => setSelectedOrderId(null)} style={{ background: 'none', border: 'none', color: '#C2865A', cursor: 'pointer', padding: 0, fontSize: 14, fontWeight: 600, fontFamily: "'DM Sans', sans-serif" }}>← {t('back')}</button>
           <span style={{ fontSize: 18, fontWeight: 700, color: '#fff', fontFamily: "'DM Sans', sans-serif" }}>{t('orderDetails')}</span>
         </div>
@@ -195,7 +195,7 @@ export default function SupervisorHome() {
   if (screen === 'settings') {
     return (
       <div style={{ height: '100%', display: 'flex', flexDirection: 'column', background: '#111' }}>
-        <div style={{ padding: '16px 16px 12px', borderBottom: '1px solid #2a2a2a', display: 'flex', alignItems: 'center', gap: 12 }}>
+        <div style={{ padding: '100px 16px 16px', borderBottom: '1px solid #2a2a2a', display: 'flex', alignItems: 'center', gap: 12 }}>
           <button onClick={() => setScreen('home')} style={{ background: 'none', border: 'none', color: '#C2865A', cursor: 'pointer', padding: 0, fontSize: 14, fontWeight: 600, fontFamily: "'DM Sans', sans-serif" }}>← {t('back')}</button>
           <span style={{ fontSize: 18, fontWeight: 700, color: '#fff', fontFamily: "'DM Sans', sans-serif" }}>{t('settings')}</span>
         </div>
@@ -256,10 +256,9 @@ export default function SupervisorHome() {
   // ── Home screen ───────────────────────────────────────────────────────────
   return (
     <div style={{ height: '100%', display: 'flex', flexDirection: 'column', background: '#111' }}>
-      <div style={{ padding: '56px 24px 36px', background: 'linear-gradient(180deg, #2d1f14 0%, #111111 100%)' }}>
+      <div style={{ padding: '100px 24px 36px', background: 'linear-gradient(180deg, #2d1f14 0%, #111111 100%)' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
           <div>
-            <div style={{ fontSize: 16, color: '#9CA3AF', marginBottom: 8, fontFamily: "'DM Sans', sans-serif" }}>{t('welcome')},</div>
             <div style={{ fontSize: 32, fontWeight: 800, color: '#fff', lineHeight: 1.15, fontFamily: "'DM Sans', sans-serif" }}>{user?.name}</div>
           </div>
           <div style={{ position: 'relative', flexShrink: 0, marginLeft: 16 }}>
