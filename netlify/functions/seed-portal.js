@@ -71,12 +71,24 @@ exports.handler = async (event) => {
     let contractorId;
     const existingC = await db.collection('contractors').findOne({ name: 'Test Contractor LLC' });
     if (!existingC) {
-      const r = await db.collection('contractors').insertOne({ name: 'Test Contractor LLC', status: 'active', createdAt: new Date() });
+      const r = await db.collection('contractors').insertOne({
+        name: 'Test Contractor LLC', status: 'active',
+        siteMeasureEnabled: true, createdAt: new Date(),
+      });
       contractorId = r.insertedId.toString();
-      log.push('created contractor: Test Contractor LLC');
+      log.push('created contractor: Test Contractor LLC (siteMeasureEnabled: true)');
     } else {
       contractorId = existingC._id.toString();
-      log.push('contractor exists');
+      // Patch flag on existing contractor so re-seeding a live DB works correctly
+      if (!existingC.siteMeasureEnabled) {
+        await db.collection('contractors').updateOne(
+          { _id: existingC._id },
+          { $set: { siteMeasureEnabled: true } }
+        );
+        log.push('patched contractor: siteMeasureEnabled → true');
+      } else {
+        log.push('contractor exists (siteMeasureEnabled already true)');
+      }
     }
 
     // ── Users ────────────────────────────────────────────────────────────
