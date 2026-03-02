@@ -474,20 +474,20 @@ export default function ForemanHome() {
 
   return (
     <div style={{ height: '100%', display: 'flex', flexDirection: 'column', background: '#111' }}>
-      <div style={{ padding: '20px 16px 16px', background: 'linear-gradient(180deg, #2d1f14 0%, #111 100%)' }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 }}>
+      <div style={{ padding: '56px 24px 36px', background: 'linear-gradient(180deg, #2d1f14 0%, #111111 100%)' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
           <div>
-            <div style={{ fontSize: 13, color: '#9CA3AF', fontFamily: "'DM Sans', sans-serif" }}>{t('welcome')},</div>
-            <div style={{ fontSize: 22, fontWeight: 700, color: '#fff', fontFamily: "'DM Sans', sans-serif" }}>{user?.name}</div>
+            <div style={{ fontSize: 16, color: '#9CA3AF', marginBottom: 8, fontFamily: "'DM Sans', sans-serif" }}>{t('welcome')},</div>
+            <div style={{ fontSize: 32, fontWeight: 800, color: '#fff', lineHeight: 1.15, fontFamily: "'DM Sans', sans-serif" }}>{user?.name}</div>
           </div>
-          <div style={{ width: 40, height: 40, borderRadius: '50%', background: '#C2865A', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontWeight: 700, fontSize: 16, fontFamily: "'DM Sans', sans-serif" }}>
+          <div style={{ width: 58, height: 58, borderRadius: '50%', background: '#C2865A', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontWeight: 700, fontSize: 22, fontFamily: "'DM Sans', sans-serif", flexShrink: 0, marginLeft: 16 }}>
             {initials}
           </div>
         </div>
       </div>
 
-      <div style={{ flex: 1, overflowY: 'auto', padding: '0 20px 100px' }}>
-        <div style={{ fontSize: 13, fontWeight: 600, color: '#9CA3AF', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: 12, marginTop: 24, fontFamily: "'DM Sans', sans-serif" }}>
+      <div style={{ flex: 1, overflowY: 'auto', padding: '0 24px 100px' }}>
+        <div style={{ fontSize: 14, fontWeight: 700, color: '#6B7280', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 14, marginTop: 32, fontFamily: "'DM Sans', sans-serif" }}>
           {t('selectProject')}
         </div>
 
@@ -503,11 +503,11 @@ export default function ForemanHome() {
             <button
               key={proj.id}
               onClick={() => { setSelectedProjectId(proj.id); setScreen('materials') }}
-              style={{ width: '100%', background: '#1a1a1a', border: '1px solid #2a2a2a', borderRadius: 12, padding: 20, marginBottom: 12, cursor: 'pointer', display: 'flex', justifyContent: 'space-between', alignItems: 'center', textAlign: 'left' }}
+              style={{ width: '100%', background: '#1a1a1a', border: '1px solid #2a2a2a', borderRadius: 14, padding: '22px 20px', marginBottom: 14, cursor: 'pointer', display: 'flex', justifyContent: 'space-between', alignItems: 'center', textAlign: 'left' }}
             >
               <div>
-                <div style={{ fontSize: 15, fontWeight: 600, color: '#fff', fontFamily: "'DM Sans', sans-serif" }}>{proj.name}</div>
-                <div style={{ fontSize: 12, color: '#C2865A', marginTop: 2, fontFamily: "'DM Sans', sans-serif" }}>{proj.po}</div>
+                <div style={{ fontSize: 17, fontWeight: 700, color: '#fff', fontFamily: "'DM Sans', sans-serif" }}>{proj.name}</div>
+                <div style={{ fontSize: 13, color: '#C2865A', marginTop: 5, fontFamily: "'DM Sans', sans-serif" }}>{proj.po}</div>
               </div>
               <span style={{ color: '#6B7280' }}><Icons.ChevronRight /></span>
             </button>

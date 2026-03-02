@@ -256,18 +256,18 @@ export default function SupervisorHome() {
   // ── Home screen ───────────────────────────────────────────────────────────
   return (
     <div style={{ height: '100%', display: 'flex', flexDirection: 'column', background: '#111' }}>
-      <div style={{ padding: '20px 16px 16px', background: 'linear-gradient(180deg, #2d1f14 0%, #111 100%)' }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
+      <div style={{ padding: '56px 24px 36px', background: 'linear-gradient(180deg, #2d1f14 0%, #111111 100%)' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
           <div>
-            <div style={{ fontSize: 13, color: '#9CA3AF', fontFamily: "'DM Sans', sans-serif" }}>{t('welcome')},</div>
-            <div style={{ fontSize: 22, fontWeight: 700, color: '#fff', fontFamily: "'DM Sans', sans-serif" }}>{user?.name}</div>
+            <div style={{ fontSize: 16, color: '#9CA3AF', marginBottom: 8, fontFamily: "'DM Sans', sans-serif" }}>{t('welcome')},</div>
+            <div style={{ fontSize: 32, fontWeight: 800, color: '#fff', lineHeight: 1.15, fontFamily: "'DM Sans', sans-serif" }}>{user?.name}</div>
           </div>
-          <div style={{ position: 'relative' }}>
-            <div style={{ width: 40, height: 40, borderRadius: '50%', background: '#C2865A', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontWeight: 700, fontSize: 16, fontFamily: "'DM Sans', sans-serif" }}>
+          <div style={{ position: 'relative', flexShrink: 0, marginLeft: 16 }}>
+            <div style={{ width: 58, height: 58, borderRadius: '50%', background: '#C2865A', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontWeight: 700, fontSize: 22, fontFamily: "'DM Sans', sans-serif" }}>
               {initials}
             </div>
             {pendingOrders.length > 0 && (
-              <div style={{ position: 'absolute', top: -4, right: -4, width: 18, height: 18, borderRadius: '50%', background: '#EF4444', color: '#fff', fontSize: 10, fontWeight: 700, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <div style={{ position: 'absolute', top: -4, right: -4, width: 22, height: 22, borderRadius: '50%', background: '#EF4444', color: '#fff', fontSize: 11, fontWeight: 700, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                 {pendingOrders.length}
               </div>
             )}
@@ -275,7 +275,7 @@ export default function SupervisorHome() {
         </div>
       </div>
 
-      <div style={{ flex: 1, overflowY: 'auto', padding: '0 16px 16px' }}>
+      <div style={{ flex: 1, overflowY: 'auto', padding: '16px 24px 100px' }}>
         {/* Unavailable banner */}
         {isUnavailable && (
           <div style={{ background: '#7F1D1D', border: '1px solid #991B1B', borderRadius: 12, padding: 14, marginBottom: 12, display: 'flex', alignItems: 'center', gap: 10 }}>
@@ -298,10 +298,10 @@ export default function SupervisorHome() {
                   <button
                     key={o.id}
                     onClick={() => setSelectedOrderId(o.id)}
-                    style={{ width: '100%', background: '#1a1a1a', border: '1px solid rgba(194,134,90,0.2)', borderRadius: 12, padding: 16, marginBottom: 8, cursor: 'pointer', textAlign: 'left' }}
+                    style={{ width: '100%', background: '#1a1a1a', border: '1px solid rgba(194,134,90,0.2)', borderRadius: 14, padding: '20px', marginBottom: 12, cursor: 'pointer', textAlign: 'left' }}
                   >
-                    <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 6 }}>
-                      <div style={{ fontSize: 15, fontWeight: 600, color: '#fff', fontFamily: "'DM Sans', sans-serif", flex: 1, marginRight: 8 }}>{o.projectName}</div>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 8 }}>
+                      <div style={{ fontSize: 17, fontWeight: 700, color: '#fff', fontFamily: "'DM Sans', sans-serif", flex: 1, marginRight: 8 }}>{o.projectName}</div>
                       <span style={{ color: '#6B7280' }}><Icons.ChevronRight /></span>
                     </div>
                     <div style={{ fontSize: 12, color: '#9CA3AF', fontFamily: "'DM Sans', sans-serif" }}>
@@ -332,10 +332,10 @@ export default function SupervisorHome() {
                   <button
                     key={o.id}
                     onClick={() => setSelectedOrderId(o.id)}
-                    style={{ width: '100%', background: '#1a1a1a', border: '1px solid #2a2a2a', borderRadius: 12, padding: 16, marginBottom: 8, cursor: 'pointer', textAlign: 'left' }}
+                    style={{ width: '100%', background: '#1a1a1a', border: '1px solid #2a2a2a', borderRadius: 14, padding: '20px', marginBottom: 12, cursor: 'pointer', textAlign: 'left' }}
                   >
-                    <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 6, alignItems: 'center' }}>
-                      <div style={{ fontSize: 14, fontWeight: 600, color: '#fff', fontFamily: "'DM Sans', sans-serif", flex: 1, marginRight: 8 }}>{o.projectName}</div>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 8, alignItems: 'center' }}>
+                      <div style={{ fontSize: 17, fontWeight: 700, color: '#fff', fontFamily: "'DM Sans', sans-serif", flex: 1, marginRight: 8 }}>{o.projectName}</div>
                       <StatusBadge status={o.status} />
                     </div>
                     <div style={{ fontSize: 12, color: '#9CA3AF', fontFamily: "'DM Sans', sans-serif" }}>
