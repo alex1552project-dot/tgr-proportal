@@ -254,54 +254,55 @@ export default function ForemanHome() {
           <div style={{ flex: 1 }} />
         </div>
 
-        <div style={{ flex: 1, overflowY: 'auto', padding: 16 }}>
+        <div style={{ flex: 1, overflowY: 'auto', padding: '16px 20px' }}>
           {/* Project */}
-          <div style={{ background: '#1a1a1a', borderRadius: 12, padding: 20, marginBottom: 14, border: '1px solid #2a2a2a' }}>
-            <div style={{ fontSize: 11, color: '#9CA3AF', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: 4, fontFamily: "'DM Sans', sans-serif" }}>{t('project')}</div>
-            <div style={{ fontSize: 15, color: '#fff', fontWeight: 600, fontFamily: "'DM Sans', sans-serif" }}>{selectedProject?.name}</div>
-            <div style={{ fontSize: 13, color: '#C2865A', marginTop: 2, fontFamily: "'DM Sans', sans-serif" }}>{selectedProject?.po}</div>
+          <div style={{ background: '#1a1a1a', borderRadius: 14, padding: '20px 22px', marginBottom: 14, border: '1px solid #2a2a2a', textAlign: 'center' }}>
+            <div style={{ fontSize: 12, color: '#9CA3AF', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 8, fontFamily: "'DM Sans', sans-serif" }}>{t('project')}</div>
+            <div style={{ fontSize: 26, fontWeight: 800, color: '#fff', lineHeight: 1.2, fontFamily: "'DM Sans', sans-serif" }}>{selectedProject?.name}</div>
+            <div style={{ fontSize: 20, fontWeight: 700, color: '#C2865A', marginTop: 6, fontFamily: "'DM Sans', sans-serif" }}>{selectedProject?.po}</div>
           </div>
 
           {/* Delivery date */}
-          <div style={{ background: '#1a1a1a', borderRadius: 12, padding: 20, marginBottom: 14, border: '1px solid #2a2a2a' }}>
-            <div style={{ fontSize: 11, color: '#9CA3AF', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: 4, fontFamily: "'DM Sans', sans-serif" }}>{t('requestedDelivery')}</div>
-            <div style={{ fontSize: 15, color: '#fff', fontWeight: 600, fontFamily: "'DM Sans', sans-serif" }}>{deliveryDate}</div>
+          <div style={{ background: '#1a1a1a', borderRadius: 14, padding: '20px 22px', marginBottom: 14, border: '1px solid #2a2a2a' }}>
+            <div style={{ fontSize: 12, color: '#9CA3AF', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 8, fontFamily: "'DM Sans', sans-serif" }}>{t('requestedDelivery')}</div>
+            <div style={{ fontSize: 26, fontWeight: 700, color: '#fff', fontFamily: "'DM Sans', sans-serif" }}>{deliveryDate}</div>
           </div>
 
           {/* Cart items */}
+          <div style={{ fontSize: 12, color: '#9CA3AF', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 10, fontFamily: "'DM Sans', sans-serif" }}>{t('materials')}</div>
           {cart.map(item => (
-            <div key={item.id} style={{ background: '#1a1a1a', borderRadius: 12, padding: 20, marginBottom: 12, border: '1px solid #2a2a2a', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-              <div>
-                <div style={{ fontSize: 14, color: '#fff', fontWeight: 600, fontFamily: "'DM Sans', sans-serif" }}>{lang === 'es' ? item.nameEs : item.name}</div>
-                <div style={{ fontSize: 13, color: '#9CA3AF', fontFamily: "'DM Sans', sans-serif" }}>{item.qty} {t('tons')}</div>
+            <div key={item.id} style={{ background: '#1a1a1a', borderRadius: 14, padding: '20px 22px', marginBottom: 12, border: '1px solid #2a2a2a', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <div style={{ flex: 1, marginRight: 12 }}>
+                <div style={{ fontSize: 20, color: '#fff', fontWeight: 700, fontFamily: "'DM Sans', sans-serif", marginBottom: 4 }}>{lang === 'es' ? item.nameEs : item.name}</div>
+                <div style={{ fontSize: 16, color: '#9CA3AF', fontFamily: "'DM Sans', sans-serif", fontWeight: 600 }}>{item.qty} {t('tons')}</div>
               </div>
-              <button onClick={() => removeFromCart(item.id)} style={{ background: 'none', border: 'none', color: '#EF4444', fontSize: 12, cursor: 'pointer', fontFamily: "'DM Sans', sans-serif" }}>{t('removeItem')}</button>
+              <button onClick={() => removeFromCart(item.id)} style={{ background: 'none', border: '1.5px solid #EF4444', borderRadius: 10, padding: '10px 16px', color: '#EF4444', fontSize: 15, fontWeight: 700, cursor: 'pointer', fontFamily: "'DM Sans', sans-serif", flexShrink: 0 }}>{t('removeItem')}</button>
             </div>
           ))}
 
           {/* Notes */}
-          <div style={{ background: '#1a1a1a', borderRadius: 12, padding: 16, marginTop: 12, border: '1px solid #2a2a2a' }}>
-            <div style={{ fontSize: 11, color: '#9CA3AF', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: 8, fontFamily: "'DM Sans', sans-serif" }}>{t('notes')}</div>
+          <div style={{ background: '#1a1a1a', borderRadius: 14, padding: '20px 22px', marginTop: 8, border: '1px solid #2a2a2a' }}>
+            <div style={{ fontSize: 12, color: '#9CA3AF', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 10, fontFamily: "'DM Sans', sans-serif" }}>{t('notes')}</div>
             <textarea
               value={notes}
               onChange={e => setNotes(e.target.value)}
               placeholder={t('notesPlaceholder')}
-              style={{ width: '100%', background: '#111', border: '1px solid #333', borderRadius: 8, padding: 10, color: '#fff', fontSize: 13, fontFamily: "'DM Sans', sans-serif", resize: 'vertical', minHeight: 60, boxSizing: 'border-box' }}
+              style={{ width: '100%', background: '#111', border: '1.5px solid #333', borderRadius: 10, padding: '14px', color: '#fff', fontSize: 16, fontFamily: "'DM Sans', sans-serif", resize: 'vertical', minHeight: 80, boxSizing: 'border-box' }}
             />
           </div>
 
           {submitError && (
-            <div style={{ marginTop: 12, background: '#7F1D1D', border: '1px solid #991B1B', borderRadius: 8, padding: '10px 14px', fontSize: 13, color: '#FCA5A5', fontFamily: "'DM Sans', sans-serif" }}>
+            <div style={{ marginTop: 12, background: '#7F1D1D', border: '1px solid #991B1B', borderRadius: 10, padding: '14px 18px', fontSize: 15, color: '#FCA5A5', fontFamily: "'DM Sans', sans-serif" }}>
               {submitError}
             </div>
           )}
         </div>
 
-        <div style={{ padding: 16, borderTop: '1px solid #2a2a2a' }}>
+        <div style={{ padding: '16px 20px', borderTop: '1px solid #2a2a2a' }}>
           <button
             onClick={placeOrder}
             disabled={submitting}
-            style={{ width: '100%', padding: 16, background: 'linear-gradient(135deg, #C2865A, #A0694A)', color: '#fff', border: 'none', borderRadius: 12, fontSize: 16, fontWeight: 700, cursor: submitting ? 'not-allowed' : 'pointer', fontFamily: "'DM Sans', sans-serif", opacity: submitting ? 0.7 : 1 }}
+            style={{ width: '100%', padding: 20, background: 'linear-gradient(135deg, #C2865A, #A0694A)', color: '#fff', border: 'none', borderRadius: 14, fontSize: 20, fontWeight: 800, cursor: submitting ? 'not-allowed' : 'pointer', fontFamily: "'DM Sans', sans-serif", opacity: submitting ? 0.7 : 1, letterSpacing: '0.01em' }}
           >
             {submitting ? t('placing') : t('placeOrder')}
           </button>
@@ -327,26 +328,26 @@ export default function ForemanHome() {
         </div>
 
         {/* Project / PO */}
-        <div style={{ padding: '8px 16px', background: '#1a1a1a', borderBottom: '1px solid #2a2a2a' }}>
-          <div style={{ fontSize: 12, color: '#9CA3AF', fontFamily: "'DM Sans', sans-serif" }}>
-            {selectedProject?.name} • {selectedProject?.po}
-          </div>
+        <div style={{ padding: '20px 20px 18px', background: '#1a1a1a', borderBottom: '1px solid #2a2a2a', textAlign: 'center' }}>
+          <div style={{ fontSize: 11, color: '#9CA3AF', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 8, fontFamily: "'DM Sans', sans-serif" }}>{t('project')}</div>
+          <div style={{ fontSize: 26, fontWeight: 800, color: '#fff', lineHeight: 1.2, fontFamily: "'DM Sans', sans-serif" }}>{selectedProject?.name}</div>
+          <div style={{ fontSize: 20, fontWeight: 700, color: '#C2865A', marginTop: 6, fontFamily: "'DM Sans', sans-serif" }}>{selectedProject?.po}</div>
         </div>
 
         {/* Delivery date */}
-        <div style={{ padding: '12px 16px 8px' }}>
-          <div style={{ fontSize: 11, color: '#9CA3AF', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: 4, fontFamily: "'DM Sans', sans-serif" }}>{t('requestedDelivery')}</div>
+        <div style={{ padding: '14px 20px 10px' }}>
+          <div style={{ fontSize: 11, color: '#9CA3AF', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: 6, fontFamily: "'DM Sans', sans-serif" }}>{t('requestedDelivery')}</div>
           <input
             type="date"
             value={deliveryDate}
             onChange={e => setDeliveryDate(e.target.value)}
-            style={{ background: '#1a1a1a', border: '1px solid #333', borderRadius: 8, padding: '8px 12px', color: '#fff', fontSize: 14, fontFamily: "'DM Sans', sans-serif", width: '100%', boxSizing: 'border-box' }}
+            style={{ background: '#1a1a1a', border: '1.5px solid #333', borderRadius: 12, padding: '14px 16px', color: '#fff', fontSize: 18, fontWeight: 600, fontFamily: "'DM Sans', sans-serif", width: '100%', boxSizing: 'border-box' }}
           />
         </div>
 
         {/* Measure Area — pinned above the scrollable list, visually distinct */}
         {user?.siteMeasureEnabled && (
-          <div style={{ padding: '12px 16px 10px', borderBottom: '1px solid #2a2a2a' }}>
+          <div style={{ padding: '12px 20px 10px', borderBottom: '1px solid #2a2a2a' }}>
             <button
               onClick={() => setScreen('measure')}
               style={{ width: '100%', background: 'rgba(194,134,90,0.10)', border: '1.5px solid rgba(194,134,90,0.55)', borderRadius: 12, padding: '16px 18px', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 14, textAlign: 'left', boxSizing: 'border-box' }}
@@ -363,7 +364,7 @@ export default function ForemanHome() {
           </div>
         )}
 
-        <div style={{ flex: 1, overflowY: 'auto', padding: '12px 16px 16px' }}>
+        <div style={{ flex: 1, overflowY: 'auto', padding: '12px 20px 16px' }}>
           {materialsLoading ? (
             <div style={{ textAlign: 'center', padding: '40px 0', color: '#6B7280', fontFamily: "'DM Sans', sans-serif" }}>{t('loading')}</div>
           ) : (
