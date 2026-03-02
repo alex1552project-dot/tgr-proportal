@@ -60,34 +60,40 @@ function MaterialCard({ material, lang, t, onAdd, inCart }) {
         </div>
       )}
 
-      <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-        <button
-          onClick={() => setQty(Math.max(1, qty - 5))}
-          style={{ width: 36, height: 36, borderRadius: 8, background: '#111', border: '1px solid #333', color: '#fff', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
-        >
-          <Icons.Minus />
-        </button>
-        <input
-          type="number"
-          value={qty}
-          onChange={e => setQty(Math.max(1, Number(e.target.value)))}
-          style={{ flex: 1, textAlign: 'center', background: '#111', border: '1px solid #333', borderRadius: 8, padding: 8, color: '#fff', fontSize: 15, fontWeight: 600, fontFamily: "'DM Sans', sans-serif" }}
-        />
-        <span style={{ fontSize: 12, color: '#9CA3AF', fontFamily: "'DM Sans', sans-serif" }}>{t('tons')}</span>
-        <button
-          onClick={() => setQty(qty + 5)}
-          style={{ width: 36, height: 36, borderRadius: 8, background: '#111', border: '1px solid #333', color: '#fff', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
-        >
-          <Icons.Plus />
-        </button>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+        {/* Qty row: big -/+ buttons with narrow fixed-width input */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+          <button
+            onClick={() => setQty(Math.max(1, qty - 5))}
+            style={{ width: 62, height: 62, borderRadius: 14, background: '#2a2a2a', border: '2px solid #444', color: '#fff', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 28, fontWeight: 900, flexShrink: 0 }}
+          >
+            −
+          </button>
+          <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6 }}>
+            <input
+              type="number"
+              value={qty}
+              onChange={e => setQty(Math.max(1, Number(e.target.value)))}
+              style={{ width: 90, textAlign: 'center', background: '#111', border: '2px solid #444', borderRadius: 10, padding: '10px 6px', color: '#fff', fontSize: 24, fontWeight: 700, fontFamily: "'DM Sans', sans-serif" }}
+            />
+            <span style={{ fontSize: 16, color: '#9CA3AF', fontFamily: "'DM Sans', sans-serif", fontWeight: 600 }}>{t('tons')}</span>
+          </div>
+          <button
+            onClick={() => setQty(qty + 5)}
+            style={{ width: 62, height: 62, borderRadius: 14, background: '#2a2a2a', border: '2px solid #444', color: '#fff', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 28, fontWeight: 900, flexShrink: 0 }}
+          >
+            +
+          </button>
+        </div>
+        {/* Add to Order — full-width, large touch target */}
         <button
           onClick={handleAdd}
           disabled={isOut}
           style={{
-            padding: '8px 14px', border: 'none', borderRadius: 8, color: '#fff',
+            width: '100%', padding: '18px', border: 'none', borderRadius: 14, color: '#fff',
             background: isOut ? '#333' : '#C2865A',
-            fontSize: 12, fontWeight: 700, cursor: isOut ? 'not-allowed' : 'pointer',
-            fontFamily: "'DM Sans', sans-serif", whiteSpace: 'nowrap',
+            fontSize: 17, fontWeight: 800, cursor: isOut ? 'not-allowed' : 'pointer',
+            fontFamily: "'DM Sans', sans-serif", letterSpacing: '0.01em',
           }}
         >
           {isOut ? (lang === 'es' ? 'No Disponible' : 'Unavailable') : t('addToOrder')}

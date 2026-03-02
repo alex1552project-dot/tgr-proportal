@@ -56,23 +56,54 @@ exports.handler = async (event) => {
       };
     }
 
-    const materials = await db.collection('portal_materials')
-      .find({ active: true })
-      .sort({ name: 1 })
-      .toArray();
+    // Pull from shared `products` collection (same as TGR/YTP),
+    // joined with `inventory` for real-time availability
+    const materials = await db.collection('products').aggregate([
+      { $match: { active: true } },
+      {
+        $lookup: {
+          from: 'inventory',
+          localField: 'id',
+          foreignField: 'productId',
+          as: 'inv',
+        },
+      },
+      {
+        $addFields: {
+          invDoc: { $arrayElemAt: ['$inv', 0] },
+        },
+      },
+      {
+        $project: {
+          _id: 1,
+          id: 1,
+          name: 1,
+          nameEs: 1,
+          category: 1,
+          price: 1,
+          stockTons: {
+            $ifNull: [
+              '$invDoc.quantity',
+              { $ifNull: ['$invDoc.currentStock', 999] },
+            ],
+          },
+        },
+      },
+      { $sort: { category: 1, name: 1 } },
+    ]).toArray();
 
     return {
       statusCode: 200,
       headers,
       body: JSON.stringify({
         materials: materials.map(m => ({
-          id: m._id.toString(),
-          slug: m.slug,
+          id: m.id || m._id.toString(),
+          slug: m.id || m._id.toString(),
           name: m.name,
-          nameEs: m.nameEs,
-          available: m.available,
-          pricePerTon: m.pricePerTon,
-          unit: m.unit || 'tons',
+          nameEs: m.nameEs || m.name,
+          available: Math.max(0, Math.round(m.stockTons || 0)),
+          pricePerTon: m.price || 0,
+          unit: 'tons',
         })),
       }),
     };
