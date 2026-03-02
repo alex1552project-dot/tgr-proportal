@@ -243,7 +243,7 @@ export default function ForemanHome() {
     return (
       <div style={{ height: '100%', display: 'flex', flexDirection: 'column', background: '#111' }}>
         <div style={{ padding: '16px 16px 12px', borderBottom: '1px solid #2a2a2a', display: 'flex', alignItems: 'center', gap: 12 }}>
-          <button onClick={() => setScreen('materials')} style={{ background: 'none', border: 'none', color: '#C2865A', cursor: 'pointer', padding: 0 }}><Icons.Back /></button>
+          <button onClick={() => setScreen('materials')} style={{ background: 'none', border: 'none', color: '#C2865A', cursor: 'pointer', padding: 0, fontSize: 14, fontWeight: 600, fontFamily: "'DM Sans', sans-serif" }}>← {t('back')}</button>
           <span style={{ fontSize: 18, fontWeight: 700, color: '#fff', fontFamily: "'DM Sans', sans-serif" }}>{t('orderSummary')}</span>
         </div>
 
@@ -309,7 +309,7 @@ export default function ForemanHome() {
       <div style={{ height: '100%', display: 'flex', flexDirection: 'column', background: '#111' }}>
         <div style={{ padding: '16px 16px 12px', borderBottom: '1px solid #2a2a2a', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-            <button onClick={() => { setScreen('home'); setSelectedProjectId(null) }} style={{ background: 'none', border: 'none', color: '#C2865A', cursor: 'pointer', padding: 0 }}><Icons.Back /></button>
+            <button onClick={() => { setScreen('home'); setSelectedProjectId(null) }} style={{ background: 'none', border: 'none', color: '#C2865A', cursor: 'pointer', padding: 0, fontSize: 14, fontWeight: 600, fontFamily: "'DM Sans', sans-serif" }}>← {t('back')}</button>
             <span style={{ fontSize: 18, fontWeight: 700, color: '#fff', fontFamily: "'DM Sans', sans-serif" }}>{t('selectMaterial')}</span>
           </div>
           {cart.length > 0 && (

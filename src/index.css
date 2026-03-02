@@ -6,10 +6,18 @@
   -webkit-tap-highlight-color: transparent;
 }
 
-body {
+html, body {
   margin: 0;
+  padding: 0;
+  height: 100%;
+  background: #111;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   -webkit-font-smoothing: antialiased;
+}
+
+#root {
+  height: 100%;
+  background: #111;
 }
 
 input:-webkit-autofill,

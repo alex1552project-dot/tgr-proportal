@@ -88,9 +88,7 @@ export default function SupervisorHome() {
     return (
       <div style={{ height: '100%', display: 'flex', flexDirection: 'column', background: '#111' }}>
         <div style={{ padding: '16px 16px 12px', borderBottom: '1px solid #2a2a2a', display: 'flex', alignItems: 'center', gap: 12 }}>
-          <button onClick={() => setSelectedOrderId(null)} style={{ background: 'none', border: 'none', color: '#C2865A', cursor: 'pointer', padding: 0 }}>
-            <Icons.Back />
-          </button>
+          <button onClick={() => setSelectedOrderId(null)} style={{ background: 'none', border: 'none', color: '#C2865A', cursor: 'pointer', padding: 0, fontSize: 14, fontWeight: 600, fontFamily: "'DM Sans', sans-serif" }}>← {t('back')}</button>
           <span style={{ fontSize: 18, fontWeight: 700, color: '#fff', fontFamily: "'DM Sans', sans-serif" }}>{t('orderDetails')}</span>
         </div>
 
@@ -197,10 +195,11 @@ export default function SupervisorHome() {
   if (screen === 'settings') {
     return (
       <div style={{ height: '100%', display: 'flex', flexDirection: 'column', background: '#111' }}>
-        <div style={{ padding: '16px 16px 12px', borderBottom: '1px solid #2a2a2a' }}>
+        <div style={{ padding: '16px 16px 12px', borderBottom: '1px solid #2a2a2a', display: 'flex', alignItems: 'center', gap: 12 }}>
+          <button onClick={() => setScreen('home')} style={{ background: 'none', border: 'none', color: '#C2865A', cursor: 'pointer', padding: 0, fontSize: 14, fontWeight: 600, fontFamily: "'DM Sans', sans-serif" }}>← {t('back')}</button>
           <span style={{ fontSize: 18, fontWeight: 700, color: '#fff', fontFamily: "'DM Sans', sans-serif" }}>{t('settings')}</span>
         </div>
-        <div style={{ flex: 1, padding: 16, display: 'flex', flexDirection: 'column', gap: 12 }}>
+        <div style={{ flex: 1, padding: '16px 16px 100px', overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: 12 }}>
 
           {/* Availability toggle */}
           <div style={{ background: isUnavailable ? '#7F1D1D' : '#1a1a1a', borderRadius: 12, padding: 16, border: isUnavailable ? '1px solid #991B1B' : '1px solid #2a2a2a', transition: 'all 0.3s' }}>
