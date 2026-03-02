@@ -242,9 +242,9 @@ export default function ForemanHome() {
   if (screen === 'review') {
     return (
       <div style={{ height: '100%', display: 'flex', flexDirection: 'column', background: '#111' }}>
-        <div style={{ padding: '100px 16px 16px', borderBottom: '1px solid #2a2a2a', display: 'flex', alignItems: 'center' }}>
-          <div style={{ flex: 1 }}><button onClick={() => setScreen('materials')} style={{ background: 'none', border: 'none', color: '#C2865A', cursor: 'pointer', padding: 0, fontSize: 14, fontWeight: 600, fontFamily: "'DM Sans', sans-serif" }}>← {t('back')}</button></div>
-          <span style={{ fontSize: 18, fontWeight: 700, color: '#fff', fontFamily: "'DM Sans', sans-serif" }}>{t('orderSummary')}</span>
+        <div style={{ padding: '100px 20px 30px', borderBottom: '1px solid #2a2a2a', display: 'flex', alignItems: 'center' }}>
+          <div style={{ flex: 1 }}><button onClick={() => setScreen('materials')} style={{ background: 'rgba(194,134,90,0.18)', border: '1.5px solid rgba(194,134,90,0.4)', color: '#C2865A', cursor: 'pointer', padding: '12px 22px', fontSize: 18, fontWeight: 700, borderRadius: 30, fontFamily: "'DM Sans', sans-serif" }}>← {t('back')}</button></div>
+          <span style={{ fontSize: 30, fontWeight: 800, color: '#fff', fontFamily: "'DM Sans', sans-serif" }}>{t('orderSummary')}</span>
           <div style={{ flex: 1 }} />
         </div>
 
@@ -308,9 +308,9 @@ export default function ForemanHome() {
   if (screen === 'materials') {
     return (
       <div style={{ height: '100%', display: 'flex', flexDirection: 'column', background: '#111' }}>
-        <div style={{ padding: '100px 16px 16px', borderBottom: '1px solid #2a2a2a', display: 'flex', alignItems: 'center' }}>
-          <div style={{ flex: 1 }}><button onClick={() => { setScreen('home'); setSelectedProjectId(null) }} style={{ background: 'none', border: 'none', color: '#C2865A', cursor: 'pointer', padding: 0, fontSize: 14, fontWeight: 600, fontFamily: "'DM Sans', sans-serif" }}>← {t('back')}</button></div>
-          <span style={{ fontSize: 18, fontWeight: 700, color: '#fff', fontFamily: "'DM Sans', sans-serif" }}>{t('selectMaterial')}</span>
+        <div style={{ padding: '100px 20px 30px', borderBottom: '1px solid #2a2a2a', display: 'flex', alignItems: 'center' }}>
+          <div style={{ flex: 1 }}><button onClick={() => { setScreen('home'); setSelectedProjectId(null) }} style={{ background: 'rgba(194,134,90,0.18)', border: '1.5px solid rgba(194,134,90,0.4)', color: '#C2865A', cursor: 'pointer', padding: '12px 22px', fontSize: 18, fontWeight: 700, borderRadius: 30, fontFamily: "'DM Sans', sans-serif" }}>← {t('back')}</button></div>
+          <span style={{ fontSize: 30, fontWeight: 800, color: '#fff', fontFamily: "'DM Sans', sans-serif" }}>{t('selectMaterial')}</span>
           <div style={{ flex: 1, display: 'flex', justifyContent: 'flex-end' }}>
             {cart.length > 0 && (
               <button onClick={() => setScreen('review')} style={{ background: '#C2865A', border: 'none', borderRadius: 20, padding: '6px 14px', color: '#fff', fontSize: 12, fontWeight: 700, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 6, fontFamily: "'DM Sans', sans-serif" }}>
@@ -392,9 +392,9 @@ export default function ForemanHome() {
   if (screen === 'orders') {
     return (
       <div style={{ height: '100%', display: 'flex', flexDirection: 'column', background: '#111' }}>
-        <div style={{ padding: '100px 20px 16px', borderBottom: '1px solid #2a2a2a', display: 'flex', alignItems: 'center' }}>
-          <div style={{ flex: 1 }}><button onClick={() => setScreen('home')} style={{ background: 'none', border: 'none', color: '#C2865A', cursor: 'pointer', padding: 0, fontSize: 14, fontWeight: 600, fontFamily: "'DM Sans', sans-serif" }}>← {t('back')}</button></div>
-          <span style={{ fontSize: 18, fontWeight: 700, color: '#fff', fontFamily: "'DM Sans', sans-serif" }}>{t('orderHistory')}</span>
+        <div style={{ padding: '100px 20px 30px', borderBottom: '1px solid #2a2a2a', display: 'flex', alignItems: 'center' }}>
+          <div style={{ flex: 1 }}><button onClick={() => setScreen('home')} style={{ background: 'rgba(194,134,90,0.18)', border: '1.5px solid rgba(194,134,90,0.4)', color: '#C2865A', cursor: 'pointer', padding: '12px 22px', fontSize: 18, fontWeight: 700, borderRadius: 30, fontFamily: "'DM Sans', sans-serif" }}>← {t('back')}</button></div>
+          <span style={{ fontSize: 30, fontWeight: 800, color: '#fff', fontFamily: "'DM Sans', sans-serif" }}>{t('orderHistory')}</span>
           <div style={{ flex: 1 }} />
         </div>
         <div style={{ flex: 1, overflowY: 'auto', padding: '16px 20px 100px' }}>
@@ -433,9 +433,9 @@ export default function ForemanHome() {
   if (screen === 'settings') {
     return (
       <div style={{ height: '100%', display: 'flex', flexDirection: 'column', background: '#111' }}>
-        <div style={{ padding: '100px 20px 16px', borderBottom: '1px solid #2a2a2a', display: 'flex', alignItems: 'center' }}>
-          <div style={{ flex: 1 }}><button onClick={() => setScreen('home')} style={{ background: 'none', border: 'none', color: '#C2865A', cursor: 'pointer', padding: 0, fontSize: 14, fontWeight: 600, fontFamily: "'DM Sans', sans-serif" }}>← {t('back')}</button></div>
-          <span style={{ fontSize: 18, fontWeight: 700, color: '#fff', fontFamily: "'DM Sans', sans-serif" }}>{t('settings')}</span>
+        <div style={{ padding: '100px 20px 30px', borderBottom: '1px solid #2a2a2a', display: 'flex', alignItems: 'center' }}>
+          <div style={{ flex: 1 }}><button onClick={() => setScreen('home')} style={{ background: 'rgba(194,134,90,0.18)', border: '1.5px solid rgba(194,134,90,0.4)', color: '#C2865A', cursor: 'pointer', padding: '12px 22px', fontSize: 18, fontWeight: 700, borderRadius: 30, fontFamily: "'DM Sans', sans-serif" }}>← {t('back')}</button></div>
+          <span style={{ fontSize: 30, fontWeight: 800, color: '#fff', fontFamily: "'DM Sans', sans-serif" }}>{t('settings')}</span>
           <div style={{ flex: 1 }} />
         </div>
         <div style={{ flex: 1, padding: '16px 20px 100px', overflowY: 'auto' }}>

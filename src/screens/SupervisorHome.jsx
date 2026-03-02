@@ -87,9 +87,9 @@ export default function SupervisorHome() {
 
     return (
       <div style={{ height: '100%', display: 'flex', flexDirection: 'column', background: '#111' }}>
-        <div style={{ padding: '100px 16px 16px', borderBottom: '1px solid #2a2a2a', display: 'flex', alignItems: 'center' }}>
-          <div style={{ flex: 1 }}><button onClick={() => setSelectedOrderId(null)} style={{ background: 'none', border: 'none', color: '#C2865A', cursor: 'pointer', padding: 0, fontSize: 14, fontWeight: 600, fontFamily: "'DM Sans', sans-serif" }}>← {t('back')}</button></div>
-          <span style={{ fontSize: 18, fontWeight: 700, color: '#fff', fontFamily: "'DM Sans', sans-serif" }}>{t('orderDetails')}</span>
+        <div style={{ padding: '100px 20px 30px', borderBottom: '1px solid #2a2a2a', display: 'flex', alignItems: 'center' }}>
+          <div style={{ flex: 1 }}><button onClick={() => setSelectedOrderId(null)} style={{ background: 'rgba(194,134,90,0.18)', border: '1.5px solid rgba(194,134,90,0.4)', color: '#C2865A', cursor: 'pointer', padding: '12px 22px', fontSize: 18, fontWeight: 700, borderRadius: 30, fontFamily: "'DM Sans', sans-serif" }}>← {t('back')}</button></div>
+          <span style={{ fontSize: 30, fontWeight: 800, color: '#fff', fontFamily: "'DM Sans', sans-serif" }}>{t('orderDetails')}</span>
           <div style={{ flex: 1 }} />
         </div>
 
@@ -196,9 +196,9 @@ export default function SupervisorHome() {
   if (screen === 'settings') {
     return (
       <div style={{ height: '100%', display: 'flex', flexDirection: 'column', background: '#111' }}>
-        <div style={{ padding: '100px 16px 16px', borderBottom: '1px solid #2a2a2a', display: 'flex', alignItems: 'center' }}>
-          <div style={{ flex: 1 }}><button onClick={() => setScreen('home')} style={{ background: 'none', border: 'none', color: '#C2865A', cursor: 'pointer', padding: 0, fontSize: 14, fontWeight: 600, fontFamily: "'DM Sans', sans-serif" }}>← {t('back')}</button></div>
-          <span style={{ fontSize: 18, fontWeight: 700, color: '#fff', fontFamily: "'DM Sans', sans-serif" }}>{t('settings')}</span>
+        <div style={{ padding: '100px 20px 30px', borderBottom: '1px solid #2a2a2a', display: 'flex', alignItems: 'center' }}>
+          <div style={{ flex: 1 }}><button onClick={() => setScreen('home')} style={{ background: 'rgba(194,134,90,0.18)', border: '1.5px solid rgba(194,134,90,0.4)', color: '#C2865A', cursor: 'pointer', padding: '12px 22px', fontSize: 18, fontWeight: 700, borderRadius: 30, fontFamily: "'DM Sans', sans-serif" }}>← {t('back')}</button></div>
+          <span style={{ fontSize: 30, fontWeight: 800, color: '#fff', fontFamily: "'DM Sans', sans-serif" }}>{t('settings')}</span>
           <div style={{ flex: 1 }} />
         </div>
         <div style={{ flex: 1, padding: '16px 16px 100px', overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: 12 }}>
