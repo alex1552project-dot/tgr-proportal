@@ -235,9 +235,10 @@ export default function GpsWalkScreen({ projectId, selectedProject, token, onSav
   if (step === 'mode') {
     return (
       <div style={{ height: '100%', display: 'flex', flexDirection: 'column', background: '#111' }}>
-        <div style={{ padding: '100px 16px 16px', borderBottom: '1px solid #2a2a2a', display: 'flex', alignItems: 'center', gap: 12 }}>
-          <button onClick={onCancel} style={{ background: 'none', border: 'none', color: '#C2865A', cursor: 'pointer', padding: 0, fontSize: 14, fontWeight: 600, fontFamily: "'DM Sans', sans-serif" }}>← Back</button>
+        <div style={{ padding: '100px 16px 16px', borderBottom: '1px solid #2a2a2a', display: 'flex', alignItems: 'center' }}>
+          <div style={{ flex: 1 }}><button onClick={onCancel} style={{ background: 'none', border: 'none', color: '#C2865A', cursor: 'pointer', padding: 0, fontSize: 14, fontWeight: 600, fontFamily: "'DM Sans', sans-serif" }}>← Back</button></div>
           <span style={{ fontSize: 18, fontWeight: 700, color: '#fff', fontFamily: "'DM Sans', sans-serif" }}>{t('measureArea')}</span>
+          <div style={{ flex: 1 }} />
         </div>
         <div style={{ padding: '10px 16px 4px' }}>
           <div style={{ fontSize: 12, color: '#9CA3AF', fontFamily: "'DM Sans', sans-serif" }}>{selectedProject?.name}</div>
@@ -285,9 +286,10 @@ export default function GpsWalkScreen({ projectId, selectedProject, token, onSav
     const hasReading = accuracy !== null
     return (
       <div style={{ height: '100%', display: 'flex', flexDirection: 'column', background: '#111' }}>
-        <div style={{ padding: '100px 16px 16px', borderBottom: '1px solid #2a2a2a', display: 'flex', alignItems: 'center', gap: 12 }}>
-          <button onClick={() => setStep('mode')} style={{ background: 'none', border: 'none', color: '#C2865A', cursor: 'pointer', padding: 0, fontSize: 14, fontWeight: 600, fontFamily: "'DM Sans', sans-serif" }}>← Back</button>
+        <div style={{ padding: '100px 16px 16px', borderBottom: '1px solid #2a2a2a', display: 'flex', alignItems: 'center' }}>
+          <div style={{ flex: 1 }}><button onClick={() => setStep('mode')} style={{ background: 'none', border: 'none', color: '#C2865A', cursor: 'pointer', padding: 0, fontSize: 14, fontWeight: 600, fontFamily: "'DM Sans', sans-serif" }}>← Back</button></div>
           <span style={{ fontSize: 18, fontWeight: 700, color: '#fff', fontFamily: "'DM Sans', sans-serif" }}>{t('walkPerimeter')}</span>
+          <div style={{ flex: 1 }} />
         </div>
 
         <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'space-evenly', padding: '24px' }}>
@@ -308,23 +310,23 @@ export default function GpsWalkScreen({ projectId, selectedProject, token, onSav
           </div>
 
           {/* Tips */}
-          <div style={{ background: '#1a1a1a', borderRadius: 12, padding: 16, width: '100%', border: '1px solid #2a2a2a' }}>
-            <div style={{ fontSize: 11, fontWeight: 700, color: '#9CA3AF', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: 10, fontFamily: "'DM Sans', sans-serif" }}>{t('forBestResults')}</div>
+          <div style={{ background: '#1a1a1a', borderRadius: 14, padding: '20px 20px', width: '100%', border: '1px solid #2a2a2a' }}>
+            <div style={{ fontSize: 16, fontWeight: 700, color: '#9CA3AF', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: 16, fontFamily: "'DM Sans', sans-serif" }}>{t('forBestResults')}</div>
             {[t('tipOutside'), t('tipWait'), t('tipPace')].map((tip, i) => (
-              <div key={i} style={{ display: 'flex', gap: 8, marginBottom: i < 2 ? 8 : 0 }}>
-                <span style={{ color: '#C2865A', marginTop: 1, flexShrink: 0 }}>•</span>
-                <span style={{ fontSize: 13, color: '#D1D5DB', fontFamily: "'DM Sans', sans-serif", lineHeight: 1.4 }}>{tip}</span>
+              <div key={i} style={{ display: 'flex', gap: 12, marginBottom: i < 2 ? 16 : 0 }}>
+                <span style={{ color: '#C2865A', marginTop: 2, flexShrink: 0, fontSize: 22 }}>•</span>
+                <span style={{ fontSize: 20, color: '#D1D5DB', fontFamily: "'DM Sans', sans-serif", lineHeight: 1.4 }}>{tip}</span>
               </div>
             ))}
           </div>
 
         </div>
 
-        <div style={{ padding: '16px', borderTop: '1px solid #2a2a2a' }}>
+        <div style={{ padding: '20px 16px', borderTop: '1px solid #2a2a2a', display: 'flex', justifyContent: 'center' }}>
           <button
             onClick={() => { setCoords([]); setStep('walking') }}
             disabled={!hasReading}
-            style={{ width: '100%', padding: 16, background: hasReading ? 'linear-gradient(135deg, #C2865A, #A0694A)' : '#333', color: '#fff', border: 'none', borderRadius: 12, fontSize: 16, fontWeight: 700, cursor: hasReading ? 'pointer' : 'not-allowed', fontFamily: "'DM Sans', sans-serif", opacity: hasReading ? 1 : 0.5 }}
+            style={{ padding: '20px 52px', background: hasReading ? 'linear-gradient(135deg, #C2865A, #A0694A)' : '#333', color: '#fff', border: 'none', borderRadius: 16, fontSize: 20, fontWeight: 800, cursor: hasReading ? 'pointer' : 'not-allowed', fontFamily: "'DM Sans', sans-serif", opacity: hasReading ? 1 : 0.5, letterSpacing: '0.02em' }}
           >
             {hasReading ? t('startWalking') : t('gpsSearching')}
           </button>
@@ -344,9 +346,10 @@ export default function GpsWalkScreen({ projectId, selectedProject, token, onSav
       <div style={{ height: '100%', display: 'flex', flexDirection: 'column', background: '#111' }}>
 
         {/* Nav header */}
-        <div style={{ padding: '100px 16px 16px', borderBottom: '1px solid #2a2a2a', display: 'flex', alignItems: 'center', gap: 12 }}>
-          <button onClick={() => { setCoords([]); setStep('pre') }} style={{ background: 'none', border: 'none', color: '#C2865A', cursor: 'pointer', padding: 0, fontSize: 14, fontWeight: 600, fontFamily: "'DM Sans', sans-serif" }}>← Back</button>
+        <div style={{ padding: '100px 16px 16px', borderBottom: '1px solid #2a2a2a', display: 'flex', alignItems: 'center' }}>
+          <div style={{ flex: 1 }}><button onClick={() => { setCoords([]); setStep('pre') }} style={{ background: 'none', border: 'none', color: '#C2865A', cursor: 'pointer', padding: 0, fontSize: 14, fontWeight: 600, fontFamily: "'DM Sans', sans-serif" }}>← Back</button></div>
           <span style={{ fontSize: 18, fontWeight: 700, color: '#fff', fontFamily: "'DM Sans', sans-serif" }}>{t('walkPerimeter')}</span>
+          <div style={{ flex: 1 }} />
         </div>
 
         {/* Status bar */}
@@ -415,9 +418,10 @@ export default function GpsWalkScreen({ projectId, selectedProject, token, onSav
 
     return (
       <div style={{ height: '100%', display: 'flex', flexDirection: 'column', background: '#111' }}>
-        <div style={{ padding: '100px 16px 16px', borderBottom: '1px solid #2a2a2a', display: 'flex', alignItems: 'center', gap: 12 }}>
-          <button onClick={() => { setCoords([]); setStep('walking') }} style={{ background: 'none', border: 'none', color: '#C2865A', cursor: 'pointer', padding: 0, fontSize: 14, fontWeight: 600, fontFamily: "'DM Sans', sans-serif" }}>← Back</button>
+        <div style={{ padding: '100px 16px 16px', borderBottom: '1px solid #2a2a2a', display: 'flex', alignItems: 'center' }}>
+          <div style={{ flex: 1 }}><button onClick={() => { setCoords([]); setStep('walking') }} style={{ background: 'none', border: 'none', color: '#C2865A', cursor: 'pointer', padding: 0, fontSize: 14, fontWeight: 600, fontFamily: "'DM Sans', sans-serif" }}>← Back</button></div>
           <span style={{ fontSize: 18, fontWeight: 700, color: '#fff', fontFamily: "'DM Sans', sans-serif" }}>{t('reviewPolygon')}</span>
+          <div style={{ flex: 1 }} />
         </div>
 
         <div style={{ flex: 1, overflowY: 'auto', padding: '16px' }}>
@@ -505,9 +509,10 @@ export default function GpsWalkScreen({ projectId, selectedProject, token, onSav
   // ── STEP: CONFIGURE ────────────────────────────────────────────────────────
   return (
     <div style={{ height: '100%', display: 'flex', flexDirection: 'column', background: '#111' }}>
-      <div style={{ padding: '100px 16px 16px', borderBottom: '1px solid #2a2a2a', display: 'flex', alignItems: 'center', gap: 12 }}>
-        <button onClick={() => setStep('review')} style={{ background: 'none', border: 'none', color: '#C2865A', cursor: 'pointer', padding: 0, fontSize: 14, fontWeight: 600, fontFamily: "'DM Sans', sans-serif" }}>← Back</button>
+      <div style={{ padding: '100px 16px 16px', borderBottom: '1px solid #2a2a2a', display: 'flex', alignItems: 'center' }}>
+        <div style={{ flex: 1 }}><button onClick={() => setStep('review')} style={{ background: 'none', border: 'none', color: '#C2865A', cursor: 'pointer', padding: 0, fontSize: 14, fontWeight: 600, fontFamily: "'DM Sans', sans-serif" }}>← Back</button></div>
         <span style={{ fontSize: 18, fontWeight: 700, color: '#fff', fontFamily: "'DM Sans', sans-serif" }}>{t('configureArea')}</span>
+        <div style={{ flex: 1 }} />
       </div>
 
       <div style={{ flex: 1, overflowY: 'auto', padding: '16px' }}>
