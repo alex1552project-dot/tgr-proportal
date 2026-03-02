@@ -123,6 +123,19 @@ export default function SupervisorHome() {
             </div>
           </div>
 
+          {/* Delivery type — prominent banner */}
+          {(() => {
+            const isPickup = order.deliveryType === 'pickup'
+            return (
+              <div style={{ background: isPickup ? 'rgba(251,191,36,0.12)' : 'rgba(52,211,153,0.10)', border: `2px solid ${isPickup ? '#fbbf24' : '#34d399'}`, borderRadius: 14, padding: '18px 20px', marginBottom: 12, textAlign: 'center' }}>
+                <div style={{ fontSize: 11, color: '#9CA3AF', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 6, fontFamily: "'DM Sans', sans-serif" }}>Order Type</div>
+                <div style={{ fontSize: 28, fontWeight: 900, color: isPickup ? '#fbbf24' : '#34d399', fontFamily: "'DM Sans', sans-serif", letterSpacing: '0.02em' }}>
+                  {isPickup ? '🏗  PICK UP' : '🚛  DELIVERY'}
+                </div>
+              </div>
+            )
+          })()}
+
           {/* Items */}
           <div style={{ fontSize: 13, fontWeight: 600, color: '#9CA3AF', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: 8, fontFamily: "'DM Sans', sans-serif" }}>{t('materials')}</div>
           {(order.items || []).map((item, i) => (
@@ -308,11 +321,18 @@ export default function SupervisorHome() {
                     <div style={{ fontSize: 12, color: '#9CA3AF', fontFamily: "'DM Sans', sans-serif" }}>
                       {o.foremanName} • {(o.items || []).length} {t('materials').toLowerCase()} • {o.createdAt?.slice(0, 10)}
                     </div>
-                    {(o.deliveryCostEstimate || 0) + (o.items || []).reduce((s, i) => s + i.qty * (i.pricePerTon || 0), 0) > 0 && (
-                      <div style={{ fontSize: 13, color: '#C2865A', fontWeight: 600, marginTop: 4, fontFamily: "'DM Sans', sans-serif" }}>
-                        ${((o.deliveryCostEstimate || 0) + (o.items || []).reduce((s, i) => s + i.qty * (i.pricePerTon || 0), 0)).toLocaleString()}
-                      </div>
-                    )}
+                    <div style={{ marginTop: 8, display: 'flex', gap: 8, alignItems: 'center', flexWrap: 'wrap' }}>
+                      {o.deliveryType && (
+                        <span style={{ fontSize: 12, fontWeight: 800, padding: '4px 12px', borderRadius: 8, background: o.deliveryType === 'pickup' ? 'rgba(251,191,36,0.15)' : 'rgba(52,211,153,0.12)', color: o.deliveryType === 'pickup' ? '#fbbf24' : '#34d399', fontFamily: "'DM Sans', sans-serif" }}>
+                          {o.deliveryType === 'pickup' ? '🏗 PICK UP' : '🚛 DELIVERY'}
+                        </span>
+                      )}
+                      {(o.deliveryCostEstimate || 0) + (o.items || []).reduce((s, i) => s + i.qty * (i.pricePerTon || 0), 0) > 0 && (
+                        <span style={{ fontSize: 13, color: '#C2865A', fontWeight: 600, fontFamily: "'DM Sans', sans-serif" }}>
+                          ${((o.deliveryCostEstimate || 0) + (o.items || []).reduce((s, i) => s + i.qty * (i.pricePerTon || 0), 0)).toLocaleString()}
+                        </span>
+                      )}
+                    </div>
                   </button>
                 ))}
               </>

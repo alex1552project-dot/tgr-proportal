@@ -1,8 +1,9 @@
 const jwt = require('jsonwebtoken');
-const { ObjectId } = require('mongodb');
+const ObjectId = require('mongodb').ObjectId;
 const { connectToDatabase, headers, handleOptions } = require('./utils/db');
 
 const JWT_SECRET = process.env.JWT_SECRET;
+const BREVO_API_KEY = process.env.BREVO_API_KEY;
 
 function verifyToken(authHeader, allowedRoles) {
   if (!authHeader || !authHeader.startsWith('Bearer ')) {
@@ -39,6 +40,7 @@ function formatOrder(o) {
     supervisorId: o.supervisorId || null,
     items: o.items || [],
     deliveryDate: o.deliveryDate,
+    deliveryType: o.deliveryType || 'delivery',
     notes: o.notes || '',
     deliveryCostEstimate: o.deliveryCostEstimate || 0,
     status: o.status,
@@ -46,6 +48,34 @@ function formatOrder(o) {
     statusUpdatedBy: o.statusUpdatedBy || null,
     createdAt: o.createdAt,
   };
+}
+
+// Format E.164 from a 10-digit US number
+function toE164(phone) {
+  const digits = (phone || '').replace(/\D/g, '');
+  if (digits.length === 10) return `1${digits}`;
+  if (digits.length === 11 && digits.startsWith('1')) return digits;
+  return null;
+}
+
+async function sendSms(toPhone, message) {
+  if (!BREVO_API_KEY || !toPhone) return;
+  const e164 = toE164(toPhone);
+  if (!e164) return;
+  await fetch('https://api.brevo.com/v3/transactionalSMS/sms', {
+    method: 'POST',
+    headers: {
+      'accept': 'application/json',
+      'api-key': BREVO_API_KEY,
+      'content-type': 'application/json',
+    },
+    body: JSON.stringify({
+      sender: 'TCMaterials',
+      recipient: e164,
+      content: message,
+      type: 'transactional',
+    }),
+  }).catch(err => console.error('Brevo SMS error:', err));
 }
 
 exports.handler = async (event) => {
@@ -75,12 +105,11 @@ exports.handler = async (event) => {
 
       const orders = await ordersCol
         .find(query)
-        // pending first, then by date desc
         .sort({ status: 1, createdAt: -1 })
         .limit(100)
         .toArray();
 
-      // Re-sort: pending first regardless of alphabetical order
+      // Re-sort: pending first
       const sorted = [
         ...orders.filter(o => o.status === 'pending'),
         ...orders.filter(o => o.status !== 'pending'),
@@ -101,7 +130,7 @@ exports.handler = async (event) => {
       }
 
       const body = JSON.parse(event.body || '{}');
-      const { action, projectId, items, deliveryDate, notes } = body;
+      const { action, projectId, items, deliveryDate, notes, deliveryType } = body;
 
       if (action !== 'submit') {
         return { statusCode: 400, headers, body: JSON.stringify({ error: 'Unknown action' }) };
@@ -110,23 +139,23 @@ exports.handler = async (event) => {
         return { statusCode: 400, headers, body: JSON.stringify({ error: 'Missing required fields' }) };
       }
 
+      const orderDeliveryType = deliveryType === 'pickup' ? 'pickup' : 'delivery';
+
       // Look up project
       const project = await db.collection('contractor_projects').findOne({ _id: new ObjectId(projectId) });
       if (!project) {
         return { statusCode: 404, headers, body: JSON.stringify({ error: 'Project not found' }) };
       }
 
-      // Look up material prices
-      const materialIds = items.map(i => {
-        try { return new ObjectId(i.materialId); } catch { return null; }
-      }).filter(Boolean);
+      // Look up material prices from shared products collection (string IDs)
+      const materialIds = items.map(i => i.materialId).filter(Boolean);
 
-      const materialDocs = await db.collection('portal_materials')
-        .find({ _id: { $in: materialIds } })
+      const materialDocs = await db.collection('products')
+        .find({ id: { $in: materialIds } })
         .toArray();
 
       const priceMap = {};
-      materialDocs.forEach(m => { priceMap[m._id.toString()] = m.pricePerTon; });
+      materialDocs.forEach(m => { priceMap[m.id] = m.price || 0; });
 
       const itemsWithPrice = items.map(i => ({
         materialId: i.materialId,
@@ -144,18 +173,25 @@ exports.handler = async (event) => {
       });
 
       const totalTons = itemsWithPrice.reduce((s, i) => s + i.qty, 0);
-      const deliveryCostEstimate = estimateDeliveryCost(totalTons);
+      const deliveryCostEstimate = orderDeliveryType === 'pickup' ? 0 : estimateDeliveryCost(totalTons);
+
+      // Look up foreman's phone
+      const foremanDoc = await db.collection('portal_users').findOne({ _id: new ObjectId(auth.user.userId) });
 
       const result = await ordersCol.insertOne({
         contractorId: auth.user.contractorId,
         projectId,
         projectName: project.name,
+        projectAddress: project.address || '',
         po: project.po,
         foremanId: auth.user.userId,
         foremanName: auth.user.name,
+        foremanPhone: foremanDoc?.phone || '',
         supervisorId: supervisor?._id.toString() || null,
+        supervisorName: supervisor?.name || '',
         items: itemsWithPrice,
         deliveryDate: new Date(deliveryDate),
+        deliveryType: orderDeliveryType,
         notes: notes || '',
         deliveryCostEstimate,
         status: 'pending',
@@ -201,6 +237,52 @@ exports.handler = async (event) => {
 
       if (result.matchedCount === 0) {
         return { statusCode: 404, headers, body: JSON.stringify({ error: 'Order not found or already resolved' }) };
+      }
+
+      // Fetch the updated order to send SMS and push to dispatch queue
+      const order = await ordersCol.findOne({ _id: new ObjectId(orderId) });
+
+      // Send SMS to foreman
+      if (order?.foremanPhone) {
+        const typeLabel = order.deliveryType === 'pickup' ? 'PICK UP' : 'DELIVERY';
+        const dateStr = order.deliveryDate
+          ? new Date(order.deliveryDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })
+          : '';
+        if (newStatus === 'approved') {
+          await sendSms(
+            order.foremanPhone,
+            `T & C Materials: Your order for ${order.projectName}${dateStr ? ` (${dateStr})` : ''} has been APPROVED as a ${typeLabel}. We will be in touch with scheduling.`
+          );
+        } else {
+          await sendSms(
+            order.foremanPhone,
+            `T & C Materials: Your order for ${order.projectName}${dateStr ? ` (${dateStr})` : ''} was not approved. Please contact your supervisor for details.`
+          );
+        }
+      }
+
+      // If approved, push to dispatch queue for RockRunner
+      if (newStatus === 'approved' && order) {
+        const totalTons = (order.items || []).reduce((s, i) => s + (i.qty || 0), 0);
+        await db.collection('tc_dispatch_queue').insertOne({
+          portalOrderId: orderId,
+          contractorId: order.contractorId,
+          projectName: order.projectName,
+          projectAddress: order.projectAddress || '',
+          po: order.po || '',
+          foremanName: order.foremanName,
+          foremanPhone: order.foremanPhone || '',
+          supervisorName: order.supervisorName || auth.user.name,
+          items: order.items || [],
+          requestedDate: order.deliveryDate,
+          deliveryType: order.deliveryType || 'delivery',
+          totalTons,
+          notes: order.notes || '',
+          status: 'queued',
+          approvedAt: new Date(),
+          approvedBy: auth.user.name,
+          createdAt: new Date(),
+        });
       }
 
       return { statusCode: 200, headers, body: JSON.stringify({ success: true, status: newStatus }) };

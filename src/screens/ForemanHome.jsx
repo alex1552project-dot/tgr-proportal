@@ -123,11 +123,15 @@ export default function ForemanHome() {
   // Cart
   const [cart, setCart] = useState([])
   const [deliveryDate, setDeliveryDate] = useState(defaultDelivery)
+  const [deliveryType, setDeliveryType] = useState('delivery')
   const [notes, setNotes] = useState('')
 
   // Order history
   const [orderHistory, setOrderHistory] = useState([])
   const [historyLoading, setHistoryLoading] = useState(false)
+
+  // Home screen order status (fetched on mount to show badges on project cards)
+  const [homeOrders, setHomeOrders] = useState([])
 
   // Submit state
   const [submitting, setSubmitting] = useState(false)
@@ -142,6 +146,16 @@ export default function ForemanHome() {
       .then(r => r.json())
       .then(d => { setProjects(d.projects || []); setProjectsLoading(false) })
       .catch(() => setProjectsLoading(false))
+  }, [token])
+
+  // ── Fetch orders on mount for home screen status badges ──────────────────
+  useEffect(() => {
+    fetch('/.netlify/functions/proportal-orders?view=foreman', {
+      headers: { Authorization: `Bearer ${token}` },
+    })
+      .then(r => r.json())
+      .then(d => setHomeOrders(d.orders || []))
+      .catch(() => {})
   }, [token])
 
   // ── Fetch materials when navigating to materials screen ──────────────────
@@ -197,6 +211,7 @@ export default function ForemanHome() {
           projectId: selectedProjectId,
           items: cart.map(c => ({ materialId: c.id, name: c.name, nameEs: c.nameEs, qty: c.qty })),
           deliveryDate,
+          deliveryType,
           notes,
         }),
       })
@@ -205,7 +220,7 @@ export default function ForemanHome() {
       setSubmitted(true)
       setTimeout(() => {
         setSubmitted(false); setCart([]); setSelectedProjectId(null)
-        setNotes(''); setDeliveryDate(defaultDelivery()); setScreen('home')
+        setNotes(''); setDeliveryDate(defaultDelivery()); setDeliveryType('delivery'); setScreen('home')
       }, 3000)
     } catch {
       setSubmitError('Network error — please try again.')
@@ -266,6 +281,16 @@ export default function ForemanHome() {
           <div style={{ background: '#1a1a1a', borderRadius: 14, padding: '20px 22px', marginBottom: 14, border: '1px solid #2a2a2a' }}>
             <div style={{ fontSize: 12, color: '#9CA3AF', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 8, fontFamily: "'DM Sans', sans-serif" }}>{t('requestedDelivery')}</div>
             <div style={{ fontSize: 26, fontWeight: 700, color: '#fff', fontFamily: "'DM Sans', sans-serif" }}>{deliveryDate}</div>
+          </div>
+
+          {/* Order type */}
+          <div style={{ background: '#1a1a1a', borderRadius: 14, padding: '20px 22px', marginBottom: 14, border: `1px solid ${deliveryType === 'pickup' ? 'rgba(251,191,36,0.4)' : 'rgba(52,211,153,0.4)'}`, textAlign: 'center' }}>
+            <div style={{ fontSize: 12, color: '#9CA3AF', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 8, fontFamily: "'DM Sans', sans-serif" }}>
+              {lang === 'es' ? 'Tipo de Pedido' : 'Order Type'}
+            </div>
+            <div style={{ fontSize: 26, fontWeight: 800, color: deliveryType === 'pickup' ? '#fbbf24' : '#34d399', fontFamily: "'DM Sans', sans-serif" }}>
+              {deliveryType === 'pickup' ? (lang === 'es' ? '🏗  RECOGER' : '🏗  PICK UP') : (lang === 'es' ? '🚛  ENTREGA' : '🚛  DELIVERY')}
+            </div>
           </div>
 
           {/* Cart items */}
@@ -332,6 +357,34 @@ export default function ForemanHome() {
           <div style={{ fontSize: 11, color: '#9CA3AF', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 8, fontFamily: "'DM Sans', sans-serif" }}>{t('project')}</div>
           <div style={{ fontSize: 26, fontWeight: 800, color: '#fff', lineHeight: 1.2, fontFamily: "'DM Sans', sans-serif" }}>{selectedProject?.name}</div>
           <div style={{ fontSize: 20, fontWeight: 700, color: '#C2865A', marginTop: 6, fontFamily: "'DM Sans', sans-serif" }}>{selectedProject?.po}</div>
+        </div>
+
+        {/* Pickup / Delivery toggle */}
+        <div style={{ padding: '14px 20px 0' }}>
+          <div style={{ fontSize: 11, color: '#9CA3AF', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: 8, fontFamily: "'DM Sans', sans-serif" }}>
+            {lang === 'es' ? 'Tipo de Pedido' : 'Order Type'}
+          </div>
+          <div style={{ display: 'flex', borderRadius: 12, overflow: 'hidden', border: '1.5px solid #333' }}>
+            {[['delivery', lang === 'es' ? '🚛  ENTREGA' : '🚛  DELIVERY'], ['pickup', lang === 'es' ? '🏗  RECOGER' : '🏗  PICK UP']].map(([val, label]) => (
+              <button
+                key={val}
+                onClick={() => setDeliveryType(val)}
+                style={{
+                  flex: 1, padding: '16px 8px', border: 'none', cursor: 'pointer',
+                  background: deliveryType === val
+                    ? (val === 'delivery' ? 'rgba(52,211,153,0.18)' : 'rgba(251,191,36,0.18)')
+                    : '#1a1a1a',
+                  color: deliveryType === val
+                    ? (val === 'delivery' ? '#34d399' : '#fbbf24')
+                    : '#6B7280',
+                  fontSize: 16, fontWeight: 800, fontFamily: "'DM Sans', sans-serif",
+                  borderRight: val === 'delivery' ? '1px solid #333' : 'none',
+                }}
+              >
+                {label}
+              </button>
+            ))}
+          </div>
         </div>
 
         {/* Delivery date */}
@@ -427,6 +480,11 @@ export default function ForemanHome() {
                     {t('estDelivery')}: {o.deliveryDate?.slice(0, 10)}
                   </div>
                 )}
+                {o.deliveryType && (
+                  <div style={{ marginTop: 4, display: 'inline-block', fontSize: 11, fontWeight: 700, padding: '3px 10px', borderRadius: 8, background: o.deliveryType === 'pickup' ? 'rgba(251,191,36,0.15)' : 'rgba(52,211,153,0.12)', color: o.deliveryType === 'pickup' ? '#fbbf24' : '#34d399', fontFamily: "'DM Sans', sans-serif" }}>
+                    {o.deliveryType === 'pickup' ? 'PICK UP' : 'DELIVERY'}
+                  </div>
+                )}
               </div>
             ))
           )}
@@ -508,19 +566,37 @@ export default function ForemanHome() {
             <div style={{ fontSize: 15 }}>No active projects</div>
           </div>
         ) : (
-          projects.map(proj => (
-            <button
-              key={proj.id}
-              onClick={() => { setSelectedProjectId(proj.id); setScreen('materials') }}
-              style={{ width: '100%', background: '#1a1a1a', border: '1px solid #2a2a2a', borderRadius: 14, padding: '22px 20px', marginBottom: 14, cursor: 'pointer', display: 'flex', justifyContent: 'space-between', alignItems: 'center', textAlign: 'left' }}
-            >
-              <div>
-                <div style={{ fontSize: 17, fontWeight: 700, color: '#fff', fontFamily: "'DM Sans', sans-serif" }}>{proj.name}</div>
-                <div style={{ fontSize: 13, color: '#C2865A', marginTop: 5, fontFamily: "'DM Sans', sans-serif" }}>{proj.po}</div>
-              </div>
-              <span style={{ color: '#6B7280' }}><Icons.ChevronRight /></span>
-            </button>
-          ))
+          projects.map(proj => {
+            // Most recent order for this project
+            const lastOrder = homeOrders.find(o => o.projectId === proj.id)
+            const borderColor = lastOrder?.status === 'approved' ? 'rgba(16,185,129,0.5)'
+              : lastOrder?.status === 'rejected'  ? 'rgba(239,68,68,0.5)'
+              : lastOrder?.status === 'pending'   ? 'rgba(251,191,36,0.5)'
+              : '#2a2a2a'
+            return (
+              <button
+                key={proj.id}
+                onClick={() => { setSelectedProjectId(proj.id); setScreen('materials') }}
+                style={{ width: '100%', background: '#1a1a1a', border: `2px solid ${borderColor}`, borderRadius: 14, padding: '22px 20px', marginBottom: 14, cursor: 'pointer', display: 'flex', justifyContent: 'space-between', alignItems: 'center', textAlign: 'left' }}
+              >
+                <div style={{ flex: 1, marginRight: 12 }}>
+                  <div style={{ fontSize: 17, fontWeight: 700, color: '#fff', fontFamily: "'DM Sans', sans-serif" }}>{proj.name}</div>
+                  <div style={{ fontSize: 13, color: '#C2865A', marginTop: 5, fontFamily: "'DM Sans', sans-serif" }}>{proj.po}</div>
+                  {lastOrder && (
+                    <div style={{ marginTop: 10 }}>
+                      <StatusBadge status={lastOrder.status} />
+                      {lastOrder.statusUpdatedBy && (
+                        <div style={{ fontSize: 11, color: '#6B7280', marginTop: 4, fontFamily: "'DM Sans', sans-serif" }}>
+                          {lastOrder.status === 'approved' ? '✓' : '✗'} {lastOrder.statusUpdatedBy}
+                        </div>
+                      )}
+                    </div>
+                  )}
+                </div>
+                <span style={{ color: '#6B7280', flexShrink: 0 }}><Icons.ChevronRight /></span>
+              </button>
+            )
+          })
         )}
       </div>
 
